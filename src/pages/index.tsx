@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { StarryBackground } from "./components/StarryBackground"
-import { ProjectCard } from "./components/ProjectCard"
-import { SkillsCloud } from "./components/SkillsCloud"
-import { AboutMe } from "./components/AboutMe"
+import { StarryBackground } from "../../components/StarryBackground"
+import { ProjectCard } from "../../components/ProjectCard"
+import { SkillsCloud } from "../../components/SkillsCloud"
+import { AboutMe } from "../../components/AboutMe"
 
 interface Project {
   id: number
