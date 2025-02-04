@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { useRouter } from "next/router"
 import { StarryBackground } from "../../components/StarryBackground"
 import { ProjectCard } from "../../components/ProjectCard"
