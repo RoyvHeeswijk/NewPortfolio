@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/router"
 import { StarryBackground } from "./components/StarryBackground"
 import { ProjectCard } from "./components/ProjectCard"
 import { SkillsCloud } from "./components/SkillsCloud"
@@ -21,9 +22,6 @@ const projects: Project[] = [
     description: "This is a project where I use THREE.js to make a sphere & diece rotate.",
     image: "Threejs.png",
     tags: ["JavaScript", "THREE.js", "VS Code"],
-
-
-    
   },
   {
     id: 2,
@@ -42,7 +40,7 @@ const projects: Project[] = [
 ]
 
 export default function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const router = useRouter();
 
   return (
     <div className="bg-black text-white min-h-screen overflow-hidden relative">
@@ -56,20 +54,19 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 my-20">
           <AboutMe />
           <SkillsCloud />
-  
         </div>
 
         <div className="my-20">
           <h2 className="text-3xl font-bold mb-8 text-center">My Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <div key={project.id} onClick={() => {
-                if (index === 0) {
-                  setSelectedProject(require('./Threejs').default);
-                } else if (index === 1) {
-                  setSelectedProject(require('./Charla').default);
-                } else if (index === 2) {
-                  setSelectedProject(require('./Upendo').default);
+                if (project.id === 1) {
+                  router.push('/Threejs'); // Navigate to Threejs.tsx
+                } else if (project.id === 2) {
+                  router.push('/Charla'); // Navigate to Charla.tsx
+                } else if (project.id === 3) {
+                  router.push('/Upendo'); // Navigate to Upendo.tsx
                 }
               }}>
                 <ProjectCard project={project} />
@@ -81,4 +78,3 @@ export default function Portfolio() {
     </div>
   )
 }
-
