@@ -14,7 +14,7 @@ export default function Navbar({ currentSection }: { currentSection: string }) {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900 bg-opacity-90 backdrop-blur-sm">
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                <Link href="#home" className="text-2xl font-bold">
+                <Link href="#home" className="text-2xl font-bold text-white">
                     ROY v HEESWIJK
                 </Link>
                 <div className="space-x-8">
