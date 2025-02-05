@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import { ChevronDown, Globe, Github } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
-import { StarryBackground } from "../../components/StarryBackground";
+import { Globe, Github } from "lucide-react"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import Image from "next/image"
+import { StarryBackground } from "../../components/StarryBackground"
 
-const classicFont = "font-American-Captain";
+const classicFont = "font-American-Captain"
 interface NavItemProps {
     text: string
     href: string
@@ -18,7 +18,7 @@ function NavItem({ text, href }: NavItemProps) {
         <div
             className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8"
             onClick={() => {
-                if (href.startsWith('/')) {
+                if (href.startsWith("/")) {
                     router.push(href)
                 } else {
                     const element = document.querySelector(href) as HTMLElement
@@ -26,7 +26,7 @@ function NavItem({ text, href }: NavItemProps) {
                         const navbarHeight = 100 // Height of navbar
                         window.scrollTo({
                             top: element.offsetTop - navbarHeight,
-                            behavior: 'smooth'
+                            behavior: "smooth",
                         })
                     }
                 }
@@ -45,8 +45,8 @@ function Navbar() {
             setIsScrolled(window.scrollY > 0)
         }
 
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
     return (
@@ -89,6 +89,7 @@ const projects = [
 ]
 
 export default function Charla() {
+    const router = useRouter()
     return (
         <main className="w-full bg-black">
             <StarryBackground />
@@ -99,18 +100,15 @@ export default function Charla() {
                 <div className="absolute inset-0 z-0 bg-transparent" />
                 <div className="absolute inset-0 flex md:items-center justify-center md:justify-start md:ml-20 items-start pt-20 z-0">
                     <div className="relative w-[250px] h-[250px] md:w-[400px] md:h-[400px]">
-                        <Image
-                            src="/Charla.png"
-                            alt="Charla Logo"
-                            layout="fill"
-                            objectFit="contain"
-                        />
+                        <Image src="/Charla.png" alt="Charla Logo" layout="fill" objectFit="contain" />
                     </div>
                 </div>
 
                 <div className="relative z-10 flex flex-col md:flex-row w-full h-full">
                     <div className="flex-[3] flex items-center justify-center mt-[300px] md:mt-0">
-                        <h1 className={`text-6xl md:text-8xl font-black text-white ${classicFont} font-bold md:absolute md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2`}>
+                        <h1
+                            className={`text-6xl md:text-8xl font-black text-white ${classicFont} font-bold md:absolute md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2`}
+                        >
                             CHARLA
                         </h1>
                     </div>
@@ -120,7 +118,8 @@ export default function Charla() {
                             For this project, I used the skills below to create a Speech-to-text app.
                             <br />
                             <br />
-                            The goal of this project was to create a Speech-to-text app using the OPENAI API key, allowing you to send messages that were originally your speech.
+                            The goal of this project was to create a Speech-to-text app using the OPENAI API key, allowing you to send
+                            messages that were originally your speech.
                             <br />
                             <br />
                             Click on the GitHub logo or the globe logo below for the result. <br />
@@ -128,15 +127,18 @@ export default function Charla() {
 
                         <section className="bg-black bg-opacity-50 py-12">
                             <div className="container mx-auto px-4">
-
                                 <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
                                     {[
-                                        { name: 'Next.js', icon: '/icons/nextdotjs.svg', url: 'https://nextjs.org/' },
-                                        { name: 'Tailwind CSS', icon: '/icons/tailwindcss.svg', url: 'https://tailwindcss.com/' },
-                                        { name: 'JavaScript', icon: '/icons/javascript.svg', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-                                        { name: 'Figma', icon: '/icons/figma.svg', url: 'https://www.figma.com/' },
-                                        { name: 'VS Code', icon: '/icons/VScode.png', url: 'https://code.visualstudio.com/' },
-                                        { name: 'OpenAI', icon: '/icons/openai.svg', url: 'https://openai.com/' },
+                                        { name: "Next.js", icon: "/icons/nextdotjs.svg", url: "https://nextjs.org/" },
+                                        { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg", url: "https://tailwindcss.com/" },
+                                        {
+                                            name: "JavaScript",
+                                            icon: "/icons/javascript.svg",
+                                            url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+                                        },
+                                        { name: "Figma", icon: "/icons/figma.svg", url: "https://www.figma.com/" },
+                                        { name: "VS Code", icon: "/icons/VScode.png", url: "https://code.visualstudio.com/" },
+                                        { name: "OpenAI", icon: "/icons/openai.svg", url: "https://openai.com/" },
                                     ].map((skill, index) => (
                                         <a
                                             key={index}
@@ -172,16 +174,42 @@ export default function Charla() {
                 </div>
             </section>
 
-            <section id="otherprojects" className=' mb-10'>
+            <section id="otherprojects" className="my-20">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-8 text-center text-white">My Projects</h2>
+                    <h2 className="text-3xl font-bold mb-8 text-center">My Projects</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {projects.map((project) => (
-                            <div key={project.id} className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <img src={project.image || "/placeholder.svg"} alt={project.title} className="w-full h-48 object-cover" />
+                            <div
+                                key={project.id}
+                                className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105"
+                                onClick={() => {
+                                    if (project.id === 1) {
+                                        router.push("/Threejs")
+                                    } else if (project.id === 2) {
+                                        router.push("/Charla")
+                                    } else if (project.id === 3) {
+                                        router.push("/Upendo")
+                                    }
+                                }}
+                            >
+                                <img
+                                    src={project.image || "/placeholder.svg"}
+                                    alt={project.title}
+                                    className="w-full h-48 object-cover"
+                                />
                                 <div className="p-6">
-                                    <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+                                    <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                                     <p className="text-gray-400">{project.description}</p>
+                                    <div className="mt-2">
+                                        {project.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -191,3 +219,4 @@ export default function Charla() {
         </main>
     )
 }
+

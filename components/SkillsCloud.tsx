@@ -13,6 +13,8 @@ const skills = [
     "Next.js",
     "THREE.js",
     "Cursor",
+    "Figma",
+    "Storyblok"
 ]
 
 export function SkillsCloud() {
