@@ -2,38 +2,22 @@
 
 import { Globe, Github } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
+import Link from "next/link"
 import Image from "next/image"
 import { StarryBackground } from "../../components/StarryBackground"
 
 const classicFont = "font-American-Captain"
+
 interface NavItemProps {
     text: string
     href: string
 }
 
 function NavItem({ text, href }: NavItemProps) {
-    const router = useRouter()
     return (
-        <div
-            className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8"
-            onClick={() => {
-                if (href.startsWith("/")) {
-                    router.push(href)
-                } else {
-                    const element = document.querySelector(href) as HTMLElement
-                    if (element) {
-                        const navbarHeight = 100 // Height of navbar
-                        window.scrollTo({
-                            top: element.offsetTop - navbarHeight,
-                            behavior: "smooth",
-                        })
-                    }
-                }
-            }}
-        >
+        <Link href={href} className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8">
             <span className={`text-sm md:text-3xl lg:text-4xl ${classicFont} font-bold`}>{text}</span>
-        </div>
+        </Link>
     )
 }
 
@@ -54,9 +38,9 @@ function Navbar() {
             <div className="px-4 sm:px-8 md:px-12 transition-all duration-300 w-full">
                 <div className="flex items-center justify-start h-[100px]">
                     <div className="pl-0">
-                        <a href="/" className="flex items-center">
+                        <Link href="/" className="flex items-center">
                             <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-r-[20px] border-r-white" />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -71,6 +55,7 @@ const projects = [
         description: "This is a project where I use THREE.js to make a sphere & diece rotate.",
         image: "Threejs.png",
         tags: ["JavaScript", "THREE.js", "CSS", "VS Code"],
+        href: "/Threejs",
     },
     {
         id: 2,
@@ -78,6 +63,7 @@ const projects = [
         description: "This is a project where I use Next.js to create a speech-to-text app.",
         image: "Charla.png",
         tags: ["Tailwind CSS", "JavaScript", "OpenAI", "Github", "Next.js", "Cursor"],
+        href: "/Charla",
     },
     {
         id: 3,
@@ -85,11 +71,11 @@ const projects = [
         description: "This is a project where I use Tailwind CSS & JavaScript to create a website for the company Upendo.",
         image: "upendo.png",
         tags: ["Javascript", "Tailwind CSS", "Next.js", "Github"],
+        href: "/Upendo",
     },
 ]
 
 export default function Charla() {
-    const router = useRouter()
     return (
         <main className="w-full bg-black">
             <StarryBackground />
@@ -176,42 +162,32 @@ export default function Charla() {
 
             <section id="otherprojects" className="my-20">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-8 text-center">My Projects</h2>
+                    <h2 className="text-3xl font-bold mb-8 text-center text-white">My Projects</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {projects.map((project) => (
-                            <div
-                                key={project.id}
-                                className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105"
-                                onClick={() => {
-                                    if (project.id === 1) {
-                                        router.push("/Threejs")
-                                    } else if (project.id === 2) {
-                                        router.push("/Charla")
-                                    } else if (project.id === 3) {
-                                        router.push("/Upendo")
-                                    }
-                                }}
-                            >
-                                <img
-                                    src={project.image || "/placeholder.svg"}
-                                    alt={project.title}
-                                    className="w-full h-48 object-cover"
-                                />
-                                <div className="p-6">
-                                    <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                                    <p className="text-gray-400">{project.description}</p>
-                                    <div className="mt-2">
-                                        {project.tags.map((tag) => (
-                                            <span
-                                                key={tag}
-                                                className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                                            >
-                                                {tag}
-                                            </span>
-                                        ))}
+                            <Link href={project.href} key={project.id}>
+                                <div className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105">
+                                    <img
+                                        src={project.image || "/placeholder.svg"}
+                                        alt={project.title}
+                                        className="w-full h-48 object-cover"
+                                    />
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+                                        <p className="text-gray-400">{project.description}</p>
+                                        <div className="mt-2">
+                                            {project.tags.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -219,4 +195,5 @@ export default function Charla() {
         </main>
     )
 }
+
 
