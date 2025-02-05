@@ -115,22 +115,20 @@ export default function Charla() {
                             <div className="container mx-auto px-4">
                                 <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
                                     {[
-                                        { name: "Next.js", icon: "/icons/nextdotjs.svg", url: "https://nextjs.org/" },
-                                        { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg", url: "https://tailwindcss.com/" },
+                                        { name: "Next.js"},
+                                        { name: "Tailwind CSS",  },
                                         {
                                             name: "JavaScript",
-                                            icon: "/icons/javascript.svg",
-                                            url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+                                           
                                         },
-                                        { name: "Figma", icon: "/icons/figma.svg", url: "https://www.figma.com/" },
-                                        { name: "VS Code", icon: "/icons/VScode.png", url: "https://code.visualstudio.com/" },
-                                        { name: "OpenAI", icon: "/icons/openai.svg", url: "https://openai.com/" },
+                                        { name: "Figma" },
+                                        { name: "VS Code", },
+                                        { name: "OpenAI", },
                                     ].map((skill, index) => (
                                         <a
                                             key={index}
-                                            href={skill.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                           
+                                          
                                             className="flex items-center bg-blue-500 text-white text-xs font-semibold mr-2 px-4 py-2 rounded transition-all hover:bg-blue-600 hover:scale-105"
                                         >
                                             <span className="text-sm">{skill.name}</span>
