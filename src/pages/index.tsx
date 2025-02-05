@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/router"
 import { StarryBackground } from "../../components/StarryBackground"
-import { ProjectCard } from "../../components/ProjectCard"
 import { SkillsCloud } from "../../components/SkillsCloud"
 import { AboutMe } from "../../components/AboutMe"
 
@@ -20,7 +19,7 @@ const projects: Project[] = [
     title: "Sphere & Diece",
     description: "This is a project where I use THREE.js to make a sphere & diece rotate.",
     image: "Threejs.png",
-    tags: ["JavaScript", "THREE.js","CSS", "VS Code"],
+    tags: ["JavaScript", "THREE.js", "CSS", "VS Code"],
   },
   {
     id: 2,
@@ -52,8 +51,10 @@ export default function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 my-20">
           <AboutMe />
-          <SkillsCloud/>
+          <SkillsCloud />
         </div>
+
+
 
         <div className="my-20">
           <h2 className="text-3xl font-bold mb-8 text-center">My Projects</h2>
