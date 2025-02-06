@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { StarryBackground } from "../../components/StarryBackground"
-import { SkillsCloud } from "../../components/SkillsCloud"
+import Link from "next/link"
 
 const classicFont = "font-American-Captain"
 interface NavItemProps {
@@ -55,9 +55,19 @@ function Navbar() {
             <div className="px-4 sm:px-8 md:px-12 transition-all duration-300 w-full">
                 <div className="flex items-center justify-start h-[100px]">
                     <div className="pl-0">
-                        <a href="/" className="flex items-center">
-                            <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-r-[20px] border-r-white" />
-                        </a>
+                        <Link href="/" className="flex items-center">
+                            <div className="w-8 h-8 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -114,7 +124,7 @@ export default function Upendo() {
                         </h1>
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:pr-4 mt-8 md:mt-0">
+                    <div className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:px-12 mt-8 md:mt-0">
                         <p className="text-white text-center md:text-center text-sm md:text-base mb-8 max-w-[90%] md:max-w-none">
                             For this project, I worked with my group using the skills below to develop a website for the company
                             "UPENDO".
@@ -131,18 +141,15 @@ export default function Upendo() {
                             <div className="container mx-auto px-4">
                                 <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
                                     {[
-                                        { name: "JavaScript",  },
-                                        { name: "Tailwind CSS", },
+                                        { name: "JavaScript" },
+                                        { name: "Tailwind CSS" },
                                         {
                                             name: "Next.js",
                                         },
-                                        { name: "Github", },
-                                        
+                                        { name: "Github" },
                                     ].map((skill, index) => (
                                         <a
                                             key={index}
-                                         
-                                            
                                             className="flex items-center bg-blue-500 text-white text-xs font-semibold mr-2 px-4 py-2 rounded transition-all hover:bg-blue-600 hover:scale-105"
                                         >
                                             <span className="text-sm">{skill.name}</span>
@@ -152,7 +159,7 @@ export default function Upendo() {
                             </div>
                         </section>
 
-                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0 mt-8">
+                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0 mt-8 md:mr-12">
                             <a
                                 href="https://github.com/Lucvancasteren/upendo-storyblok"
                                 className="text-white hover:text-blue-300 transition-colors"

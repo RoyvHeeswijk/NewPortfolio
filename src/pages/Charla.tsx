@@ -39,7 +39,17 @@ function Navbar() {
                 <div className="flex items-center justify-start h-[100px]">
                     <div className="pl-0">
                         <Link href="/" className="flex items-center">
-                            <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-r-[20px] border-r-white" />
+                            <div className="w-8 h-8 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                            </div>
                         </Link>
                     </div>
                 </div>
@@ -99,7 +109,7 @@ export default function Charla() {
                         </h1>
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:pr-4 mt-8 md:mt-0">
+                    <div className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:px-12 mt-8 md:mt-0">
                         <p className="text-white text-center md:text-center text-sm md:text-base mb-8 max-w-[90%] md:max-w-none">
                             For this project, I used the skills below to create a Speech-to-text app.
                             <br />
@@ -115,20 +125,17 @@ export default function Charla() {
                             <div className="container mx-auto px-4">
                                 <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
                                     {[
-                                        { name: "Next.js"},
-                                        { name: "Tailwind CSS",  },
+                                        { name: "Next.js" },
+                                        { name: "Tailwind CSS" },
                                         {
                                             name: "JavaScript",
-                                           
                                         },
                                         { name: "Figma" },
-                                        { name: "VS Code", },
-                                        { name: "OpenAI", },
+                                        { name: "VS Code" },
+                                        { name: "OpenAI" },
                                     ].map((skill, index) => (
                                         <a
                                             key={index}
-                                           
-                                          
                                             className="flex items-center bg-blue-500 text-white text-xs font-semibold mr-2 px-4 py-2 rounded transition-all hover:bg-blue-600 hover:scale-105"
                                         >
                                             <span className="text-sm">{skill.name}</span>
@@ -138,7 +145,7 @@ export default function Charla() {
                             </div>
                         </section>
 
-                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0">
+                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0 md:mr-12">
                             <a
                                 href="https://github.com/RoyvHeeswijk/persoonlijikproject"
                                 className="text-white hover:text-blue-300 transition-colors"
@@ -193,5 +200,4 @@ export default function Charla() {
         </main>
     )
 }
-
 
