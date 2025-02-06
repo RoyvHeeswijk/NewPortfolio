@@ -1,38 +1,23 @@
-'use client'
+"use client"
 
-import { ChevronDown, Github, Globe } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
+import { Globe, Github } from "lucide-react"
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { StarryBackground } from "../../components/StarryBackground"
 
-const classicFont = "font-American-Captain";
+const classicFont = "font-American-Captain"
+
 interface NavItemProps {
     text: string
     href: string
 }
 
 function NavItem({ text, href }: NavItemProps) {
-    const router = useRouter()
     return (
-        <div
-            className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8"
-            onClick={() => {
-                if (href.startsWith('/')) {
-                    router.push(href)
-                } else {
-                    const element = document.querySelector(href) as HTMLElement
-                    if (element) {
-                        const navbarHeight = 100 // Height of navbar
-                        window.scrollTo({
-                            top: element.offsetTop - navbarHeight,
-                            behavior: 'smooth'
-                        })
-                    }
-                }
-            }}
-        >
+        <Link href={href} className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8">
             <span className={`text-sm md:text-3xl lg:text-4xl ${classicFont} font-bold`}>{text}</span>
-        </div>
+        </Link>
     )
 }
 
@@ -44,20 +29,18 @@ function Navbar() {
             setIsScrolled(window.scrollY > 0)
         }
 
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
     return (
-        <nav className={`sticky top-0 transition-colors duration-300 ${isScrolled ? 'bg-[#1E1E1E]' : 'bg-transparent'}`}>
+        <nav className={`sticky top-0 transition-colors duration-300 'bg-transparent'`}>
             <div className="px-4 sm:px-8 md:px-12 transition-all duration-300 w-full">
-                <div className="flex items-center justify-between h-[100px]">
-                    <div className="pl-4 sm:pl-12 md:pl-24">
-                        <NavItem text="ROY v HEESWIJK" href="/" />
-                    </div>
-                    <div className="flex gap-4 sm:gap-8 md:gap-16 pr-4 sm:pr-12 md:pr-24">
-                        <NavItem text="OTHER PROJECTS" href="#otherprojects" />
-                     
+                <div className="flex items-center justify-start h-[100px]">
+                    <div className="pl-0">
+                        <Link href="/" className="flex items-center">
+                            <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-r-[20px] border-r-white" />
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -65,68 +48,88 @@ function Navbar() {
     )
 }
 
-export default function ThreeJS() {
+const projects = [
+    {
+        id: 1,
+        title: "Sphere & Diece",
+        description: "This is a project where I use THREE.js to make a sphere & diece rotate.",
+        image: "/threejs.png",
+        tags: ["JavaScript", "THREE.js", "CSS", "VS Code"],
+        href: "/Threejs",
+    },
+    {
+        id: 2,
+        title: "Charla",
+        description: "This is a project where I use Next.js to create a speech-to-text app.",
+        image: "/charla.png",
+        tags: ["Tailwind CSS", "JavaScript", "OpenAI", "Github", "Next.js", "Cursor"],
+        href: "/Charla",
+    },
+    {
+        id: 3,
+        title: "Upendo",
+        description: "This is a project where I use Tailwind CSS & JavaScript to create a website for the company Upendo.",
+        image: "/upendo.png",
+        tags: ["Javascript", "Tailwind CSS", "Next.js", "Github"],
+        href: "/Upendo",
+    },
+]
+
+export default function Threejs() {
     return (
-        <main className="w-full">
+        <main className="w-full bg-black">
+            <StarryBackground />
             <div className="fixed top-0 w-full z-50">
                 <Navbar />
             </div>
             <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-                <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover z-0">
-                    <source src="/portfoliogif3.mp4" type="video/mp4" />
-                </video>
+                <div className="absolute inset-0 z-0 bg-transparent" />
+                <div className="absolute inset-0 flex md:items-center justify-center md:justify-start md:ml-20 items-start pt-20 z-0">
+                    <div className="relative w-[250px] h-[250px] md:w-[400px] md:h-[400px]">
+                        <Image src="/Threejs.png" alt="THREE.js Logo" layout="fill" objectFit="contain" />
+                    </div>
+                </div>
 
-                <div className="relative z-10 flex w-full h-full">
-                    <div className="flex-[3] flex items-center justify-center">
-                        <h1 className={`text-4xl sm:text-6xl md:text-8xl font-black text-white ${classicFont} font-bold absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2`}>
+                <div className="relative z-10 flex flex-col md:flex-row w-full h-full">
+                    <div className="flex-[3] flex items-center justify-center mt-[300px] md:mt-0">
+                        <h1
+                            className={`text-6xl md:text-8xl font-black text-white ${classicFont} font-bold md:absolute md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2`}
+                        >
                             THREE.JS
                         </h1>
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center items-center pr-4">
-                        <p className="text-white text-center text-sm md:text-base mb-8">
-                            For this project, I used the skills below to make a sphere spin and i created a diece that you can spin. 
+                    <div className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:pr-4 mt-8 md:mt-0">
+                        <p className="text-white text-center md:text-center text-sm md:text-base mb-8 max-w-[90%] md:max-w-none">
+                            For this project, I used the skills below to make a sphere spin and I created a dice that you can spin.
                             <br />
                             <br />
-                            The goal of these project was to learn more about THREE.js and how I can use it in my projects. 
+                            The goal of these projects was to learn more about THREE.js and how I can use it in my projects.
                             <br />
                             <br />
-                            Click on the GitHub logo or the globe logo below for the result.  <br />
-                           
+                            Click on the GitHub logo or the globe logo below for the result.
                         </p>
-                        <div className="flex justify-center gap-4 w-full mb-4">
-                            {[
-                                { name: "THREE.js", icon: "/icons/threedotjs.svg", url: "https://threejs.org/" },
-                                { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg", url: "https://tailwindcss.com/" },
-                                {
-                                    name: "JavaScript",
-                                    icon: "/icons/javascript.svg",
-                                    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-                                },
-                            ].map((skill, index) => (
-                                <a
-                                    key={index}
-                                    href={skill.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-20 aspect-square bg-zinc-800 flex flex-col items-center justify-center gap-2 transition-all hover:bg-[#0979EB] hover:scale-105"
-                                >
-                                    <img
-                                        src={skill.icon || "/placeholder.svg"}
-                                        alt={skill.name}
-                                        width={40}
-                                        height={40}
-                                        className="w-8 h-8 brightness-0 invert"
-                                    />
-                                    <span className="text-xs text-center text-white">{skill.name}</span>
-                                </a>
-                            ))}
-                        </div>
-                        <div className="flex justify-center items-center mb-8">
+
+                        <section className="bg-black bg-opacity-50 py-12">
+                            <div className="container mx-auto px-4">
+                                <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
+                                    {[{ name: "THREE.js" }, { name: "JavaScript" }, { name: "CSS" }, { name: "VS Code" }].map(
+                                        (skill, index) => (
+                                            <a
+                                                key={index}
+                                                className="flex items-center bg-blue-500 text-white text-xs font-semibold mr-2 px-4 py-2 rounded transition-all hover:bg-blue-600 hover:scale-105"
+                                            >
+                                                <span className="text-sm">{skill.name}</span>
+                                            </a>
+                                        ),
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0">
                             <div className="flex flex-col items-center mr-8">
-                                <h1 className="text-white text-center text-sm md:text-base mb-2 font-bold">
-                                    Sphere
-                                </h1>
+                                <h1 className="text-white text-center text-sm md:text-base mb-2 font-bold">Sphere</h1>
                                 <div className="flex justify-center w-full space-x-6">
                                     <a
                                         href="https://github.com/RoyvHeeswijk/Sphere"
@@ -145,9 +148,7 @@ export default function ThreeJS() {
                                 </div>
                             </div>
                             <div className="flex flex-col items-center">
-                                <h1 className="text-white text-center text-sm md:text-base mb-2 font-bold">
-                                    Diece
-                                </h1>
+                                <h1 className="text-white text-center text-sm md:text-base mb-2 font-bold">Diece</h1>
                                 <div className="flex justify-center w-full space-x-6">
                                     <a
                                         href="https://github.com/RoyvHeeswijk/Diece"
@@ -170,57 +171,39 @@ export default function ThreeJS() {
                 </div>
             </section>
 
-            <section id="otherprojects" className="bg-[#1E1E1E] py-24">
-                <div className="text-center mb-12">
-                    <h2 className={`text-4xl font-bold mb-4 text-white ${classicFont}`}>OTHER PROJECTS</h2>
-                    <ChevronDown className="mx-auto text-white" size={24} />
-                </div>
-
-                <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {[1, 2].map((i) => (
-                        <div 
-                            key={i} 
-                            className="bg-zinc-800 rounded-lg overflow-hidden cursor-pointer hover:bg-zinc-700 transition-colors border border-white/40"
-                            onClick={() => {
-                                if (i === 1) {
-                                    window.location.href = '/Charla'
-                                } else if (i === 2) {
-                                    window.location.href = '/Upendo'
-                                }
-                            }}
-                        >
-                            <div className="h-48 w-full relative">
-                                {i === 1 ? (
-                                    <div className="h-full w-full flex items-center justify-center bg-black">
-                                        <Image
-                                            src="/Charla.png"
-                                            alt="Project"
-                                            width={200}
-                                            height={200}
-                                            className="max-h-full max-w-full object-contain"
-                                        />
-                                    </div>
-                                ) : (
-                                        <div className="h-full w-full flex items-center justify-center bg-black">
-                                            <Image
-                                                src="/Upendo.png"
-                                                alt="Project"
-                                                width={200}
-                                                height={200}
-                                                className="max-h-full max-w-full object-contain"
-                                            />
+            <section id="otherprojects" className="my-20">
+                <div className="container mx-auto px-4">
+                    <h2 className="text-3xl font-bold mb-8 text-center text-white">My Projects</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {projects.map((project) => (
+                            <Link href={project.href} key={project.id}>
+                                <div className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105">
+                                    <img
+                                        src={project.image || "/placeholder.svg"}
+                                        alt={project.title}
+                                        className="w-full h-48 object-cover"
+                                    />
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+                                        <p className="text-gray-400">{project.description}</p>
+                                        <div className="mt-2">
+                                            {project.tags.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
                                         </div>
-                                )}
-                            </div>
-                            <div className="p-4">
-                                <h3 className="text-sm font-mono text-white">
-                                    {i === 1 ? "Charla" : i === 2 ? "Upendo" : "Charla"}
-                                </h3>
-                            </div>
-                        </div>
-                    ))}
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </section>
         </main>
     )
 }
+
