@@ -32,7 +32,7 @@ const projects: Project[] = [
     id: 3,
     title: "Upendo",
     description: "This is a project where I use Tailwind CSS & JavaScript to create a website for the company Upendo.",
-    image: "upendo.png",
+    image: "Upendo.png",
     tags: ["Javascript", "Tailwind CSS", "Next.js", "Github"],
   },
 ]
