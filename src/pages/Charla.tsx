@@ -14,25 +14,8 @@ interface NavItemProps {
     href: string
 }
 
-function NavItem({ text, href }: NavItemProps) {
-    return (
-        <Link href={href} className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8">
-            <span className={`text-sm md:text-3xl lg:text-4xl ${classicFont} font-bold`}>{text}</span>
-        </Link>
-    )
-}
-
 function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false)
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 0)
-        }
-
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+    
 
     return (
         <motion.nav
@@ -98,7 +81,7 @@ export default function Charla() {
             <div className="fixed top-0 w-full z-50">
                 <Navbar />
             </div>
-            <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+            <section className="h-[65vh] flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 z-0 bg-transparent" />
                 <motion.div
                     className="absolute inset-0 flex md:items-center justify-center md:justify-start md:ml-20 items-start pt-20 z-0"
@@ -126,7 +109,7 @@ export default function Charla() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
                     >
-                        <p className="text-white text-center md:text-center text-sm md:text-base mb-8 max-w-[90%] md:max-w-none">
+                        <p className="text-white text-center md:text-center text-sm md:text-base mt-16 max-w-[90%] md:max-w-none">
                             For this project, I used the skills below to create a Speech-to-text app.
                             <br />
                             <br />
@@ -139,7 +122,7 @@ export default function Charla() {
 
                         <section className="bg-black bg-opacity-50 py-12">
                             <div className="container mx-auto px-4">
-                                <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
+                                <div className="flex flex-wrap justify-center gap-4 w-full ">
                                     {[
                                         { name: "Next.js" },
                                         { name: "Tailwind CSS" },
@@ -189,13 +172,13 @@ export default function Charla() {
 
             <motion.section
                 id="otherprojects"
-                className="my-20"
+                className="my-2"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
             >
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-8 text-center text-white">My Projects</h2>
+                    <h2 className="text-3xl font-bold mb-12 text-center text-white">My Projects</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {projects.map((project, index) => (
                             <motion.div
@@ -205,15 +188,17 @@ export default function Charla() {
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                             >
                                 <Link href={project.href}>
-                                    <div className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105">
+                                    <div className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105 border-2 border-gray-800 border-opacity-50 h-full flex flex-col">
                                         <img
                                             src={project.image || "/placeholder.svg"}
                                             alt={project.title}
                                             className="w-full h-48 object-cover"
                                         />
-                                        <div className="p-6">
-                                            <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
-                                            <p className="text-gray-400">{project.description}</p>
+                                        <div className="p-6 flex flex-col justify-between flex-grow">
+                                            <div>
+                                                <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+                                                <p className="text-gray-400">{project.description}</p>
+                                            </div>
                                             <div className="mt-2">
                                                 {project.tags.map((tag) => (
                                                     <span
@@ -232,6 +217,7 @@ export default function Charla() {
                     </div>
                 </div>
             </motion.section>
+            <div className="bg-black h-20" /> {/* Added a black background for the margin below the section */}
         </main>
     )
 }

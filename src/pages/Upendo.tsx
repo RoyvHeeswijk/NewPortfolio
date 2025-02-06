@@ -14,30 +14,8 @@ interface NavItemProps {
     href: string
 }
 
-function NavItem({ text, href }: NavItemProps) {
-    const router = useRouter()
-    return (
-        <div
-            className="cursor-pointer hover:text-gray-600 transition-colors px-4 sm:px-8"
-            onClick={() => {
-                if (href.startsWith("/")) {
-                    router.push(href)
-                } else {
-                    const element = document.querySelector(href) as HTMLElement
-                    if (element) {
-                        const navbarHeight = 100 // Height of navbar
-                        window.scrollTo({
-                            top: element.offsetTop - navbarHeight,
-                            behavior: "smooth",
-                        })
-                    }
-                }
-            }}
-        >
-            <span className={`text-sm md:text-3xl lg:text-4xl ${classicFont} font-bold`}>{text}</span>
-        </div>
-    )
-}
+
+
 
 function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -86,22 +64,25 @@ const projects = [
         id: 1,
         title: "Sphere & Diece",
         description: "This is a project where I use THREE.js to make a sphere & diece rotate.",
-        image: "Threejs.png",
+        image: "/threejs.png",
         tags: ["JavaScript", "THREE.js", "CSS", "VS Code"],
+        href: "/Threejs",
     },
     {
         id: 2,
         title: "Charla",
         description: "This is a project where I use Next.js to create a speech-to-text app.",
-        image: "Charla.png",
+        image: "/charla.png",
         tags: ["Tailwind CSS", "JavaScript", "OpenAI", "Github", "Next.js", "Cursor"],
+        href: "/Charla",
     },
     {
         id: 3,
         title: "Upendo",
         description: "This is a project where I use Tailwind CSS & JavaScript to create a website for the company Upendo.",
-        image: "Upendo.png",
+        image: "/upendo.png",
         tags: ["Javascript", "Tailwind CSS", "Next.js", "Github"],
+        href: "/Upendo",
     },
 ]
 
@@ -113,7 +94,7 @@ export default function Upendo() {
             <div className="fixed top-0 w-full z-50">
                 <Navbar />
             </div>
-            <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+            <section className="h-[70vh] flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 z-0 bg-transparent" />
                 <motion.div
                     className="absolute inset-0 flex md:items-center justify-center md:justify-start md:ml-20 items-start pt-20 z-0"
@@ -141,7 +122,7 @@ export default function Upendo() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
                     >
-                        <p className="text-white text-center md:text-center text-sm md:text-base mb-8 max-w-[90%] md:max-w-none">
+                        <p className="text-white text-center md:text-center text-sm md:text-base mt-16  max-w-[90%] md:max-w-none">
                             For this project, I worked with my group using the skills below to develop a website for the company
                             "UPENDO".
                             <br />
@@ -155,7 +136,7 @@ export default function Upendo() {
 
                         <section className="bg-black bg-opacity-50 py-12">
                             <div className="container mx-auto px-4">
-                                <div className="flex flex-wrap justify-center gap-4 w-full mb-4">
+                                <div className="flex flex-wrap justify-center gap-4 w-full ">
                                     {[
                                         { name: "JavaScript" },
                                         { name: "Tailwind CSS" },
@@ -177,7 +158,7 @@ export default function Upendo() {
                             </div>
                         </section>
 
-                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0 mt-8 md:mr-12">
+                        <div className="flex justify-center w-full space-x-6  md:mb-0  md:mr-12">
                             <motion.a
                                 href="https://github.com/Lucvancasteren/upendo-storyblok"
                                 className="text-white hover:text-blue-300 transition-colors"
@@ -194,55 +175,52 @@ export default function Upendo() {
 
             <motion.section
                 id="otherprojects"
-                className="my-20"
+                className="my-2"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
             >
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-8 text-center text-white">My Projects</h2>
+                    <h2 className="text-3xl font-bold mb-12 text-center text-white">My Projects</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {projects.map((project, index) => (
                             <motion.div
                                 key={project.id}
-                                className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105"
-                                onClick={() => {
-                                    if (project.id === 1) {
-                                        router.push("/Threejs")
-                                    } else if (project.id === 2) {
-                                        router.push("/Charla")
-                                    } else if (project.id === 3) {
-                                        router.push("/Upendo")
-                                    }
-                                }}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                             >
-                                <img
-                                    src={project.image || "/placeholder.svg"}
-                                    alt={project.title}
-                                    className="w-full h-48 object-cover"
-                                />
-                                <div className="p-6">
-                                    <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
-                                    <p className="text-gray-400">{project.description}</p>
-                                    <div className="mt-2">
-                                        {project.tags.map((tag) => (
-                                            <span
-                                                key={tag}
-                                                className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                                            >
-                                                {tag}
-                                            </span>
-                                        ))}
+                                <Link href={project.href}>
+                                    <div className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105 border-2 border-gray-800 border-opacity-50 h-full flex flex-col">
+                                        <img
+                                            src={project.image || "/placeholder.svg"}
+                                            alt={project.title}
+                                            className="w-full h-48 object-cover"
+                                        />
+                                        <div className="p-6 flex flex-col justify-between flex-grow">
+                                            <div>
+                                                <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
+                                                <p className="text-gray-400">{project.description}</p>
+                                            </div>
+                                            <div className="mt-2">
+                                                {project.tags.map((tag) => (
+                                                    <span
+                                                        key={tag}
+                                                        className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                                                    >
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </motion.section>
+            <div className="bg-black h-20" /> {/* Added a black background for the margin below the section */}
         </main>
     )
 }
