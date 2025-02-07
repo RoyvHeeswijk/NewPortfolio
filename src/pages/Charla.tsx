@@ -1,7 +1,6 @@
 "use client"
 
 import { Globe, Github } from "lucide-react"
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { StarryBackground } from "../../components/StarryBackground"
@@ -15,8 +14,6 @@ interface NavItemProps {
 }
 
 function Navbar() {
-    
-
     return (
         <motion.nav
             className={`sticky top-0 transition-colors duration-300 'bg-transparent'`}
@@ -81,7 +78,7 @@ export default function Charla() {
             <div className="fixed top-0 w-full z-50">
                 <Navbar />
             </div>
-            <section className="h-[65vh] flex items-center justify-center relative overflow-hidden">
+            <section className="min-h-[100vh] md:h-[65vh] flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 z-0 bg-transparent" />
                 <motion.div
                     className="absolute inset-0 flex md:items-center justify-center md:justify-start md:ml-20 items-start pt-20 z-0"
@@ -95,7 +92,7 @@ export default function Charla() {
                 </motion.div>
 
                 <div className="relative z-10 flex flex-col md:flex-row w-full h-full">
-                    <div className="flex-[3] flex items-center justify-center mt-[300px] md:mt-0">
+                    <div className="flex-[3] flex items-center justify-center mt-[200px] md:mt-0">
                         <h1
                             className={`text-6xl md:text-8xl font-black text-white ${classicFont} font-bold md:absolute md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2`}
                         >
@@ -104,12 +101,12 @@ export default function Charla() {
                     </div>
 
                     <motion.div
-                        className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:px-12 mt-8 md:mt-0"
+                        className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:px-12 mt-4 md:mt-0"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
                     >
-                        <p className="text-white text-center md:text-center text-sm md:text-base mt-16 max-w-[90%] md:max-w-none">
+                        <p className="text-white text-center md:text-center text-sm md:text-base mt-4 md:mt-16 max-w-[90%] md:max-w-none">
                             For this project, I used the skills below to create a Speech-to-text app.
                             <br />
                             <br />
@@ -146,7 +143,7 @@ export default function Charla() {
                             </div>
                         </section>
 
-                        <div className="flex justify-center w-full space-x-6 mb-8 md:mb-0 md:mr-12">
+                        <div className="flex justify-center w-full space-x-6 mb-4 md:mb-0 md:mr-12 mt-4">
                             <motion.a
                                 href="https://github.com/RoyvHeeswijk/persoonlijikproject"
                                 className="text-white hover:text-blue-300 transition-colors"
@@ -169,10 +166,9 @@ export default function Charla() {
                     </motion.div>
                 </div>
             </section>
-
             <motion.section
                 id="otherprojects"
-                className="my-2"
+                className="mt-8 md:mt-2"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}

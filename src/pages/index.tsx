@@ -60,7 +60,7 @@ export default function Portfolio() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105 cursor-pointer"
+                className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105 cursor-pointer border-2 border-gray-800 border-opacity-50"
                 onClick={() => {
                   if (project.id === 1) {
                     router.push("/Threejs")
