@@ -5,6 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { StarryBackground } from "../../components/StarryBackground"
 import { motion } from "framer-motion"
+import ProjectPageLayout from '../components/layout/ProjectPageLayout';
 
 const classicFont = "font-American-Captain"
 
@@ -47,19 +48,19 @@ function Navbar() {
 const projects = [
     {
         id: 1,
-        title: "Sphere & Diece",
-        description: "This is a project where I use THREE.js to make a sphere & diece rotate.",
+        title: "Sphere & Dice",
+        description: "This is a project where I use THREE.js to make a sphere & dice rotate.",
         image: "Threejs.png",
         tags: ["JavaScript", "THREE.js", "CSS", "VS Code"],
         href: "/Threejs",
     },
     {
         id: 2,
-        title: "Charla",
-        description: "This is a project where I use Next.js to create a speech-to-text app.",
-        image: "Charla.png",
-        tags: ["Tailwind CSS", "JavaScript", "OpenAI", "Github", "Next.js", "Cursor"],
-        href: "/Charla",
+        title: "CineMatch",
+        description: "This is a project where I use Tailwind CSS & JavaScript to create a website for my project: CineMatch.",
+        image: "video.png",
+        tags: ["JavaScript", "AI", "Next.js", "Tailwind CSS"],
+        href: "/CineMatchpage",
     },
     {
         id: 3,
@@ -71,150 +72,55 @@ const projects = [
     },
 ]
 
-export default function Charla() {
+const CharlaProjectPage = () => {
+    const pageTitle = "Charla: Real-time Spraak-naar-Tekst";
+    const metaTitle = "Charla Spraak-naar-Tekst Applicatie";
+    const metaDescription = "Een project van Roy van Heeswijk dat spraak omzet naar tekst via de OpenAI API, gebouwd met Next.js voor een soepele gebruikerservaring.";
+    const technologies = ["Next.js", "React", "Tailwind CSS", "JavaScript", "OpenAI API", "Vercel"];
+
+    const githubUrl = "https://github.com/RoyvHeeswijk";
+    const liveUrl = "https://persoonlijkproject-saj9.vercel.app/";
+
+    const description = (
+        <>
+            <p className="mb-6">
+                Charla is een applicatie die ik heb ontwikkeld om spraak in real-time om te zetten naar tekst.
+                Het project maakt gebruik van de kracht van de OpenAI API voor nauwkeurige transcripties.
+            </p>
+            <p className="mb-6">
+                Het doel was om een intuïtieve interface te creëren waarmee gebruikers eenvoudig gesproken berichten kunnen opnemen,
+                deze audio kunnen laten verwerken, en de getranscribeerde tekst direct kunnen zien en gebruiken.
+                Dit project was een uitstekende gelegenheid om te werken met externe API's, asynchrone operaties in JavaScript,
+                en state management binnen een Next.js applicatie.
+            </p>
+            <p className="mb-4">
+                Belangrijke features zijn:
+            </p>
+            <ul className="list-disc list-inside mb-6 space-y-2 pl-4">
+                <li>Directe opname en verwerking van spraak.</li>
+                <li>Integratie met OpenAI voor hoge kwaliteit transcriptie.</li>
+                <li>Een duidelijke en gebruiksvriendelijke interface.</li>
+                <li>Gebouwd met moderne webtechnologieën voor optimale performance.</li>
+            </ul>
+            <p>
+                Dit project demonstreert mijn vaardigheden in het bouwen van interactieve webapplicaties en het integreren van AI-diensten.
+            </p>
+        </>
+    );
+
     return (
-        <main className="w-full bg-black">
-            <StarryBackground />
-            <div className="fixed top-0 w-full z-50">
-                <Navbar />
-            </div>
-            <section className="min-h-[100vh] md:h-[65vh] flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 z-0 bg-transparent" />
-                <motion.div
-                    className="absolute inset-0 flex md:items-center justify-center md:justify-start md:ml-20 items-start pt-20 z-0"
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <div className="relative w-[250px] h-[250px] md:w-[400px] md:h-[400px]">
-                        <Image src="/Charla.png" alt="Charla Logo" layout="fill" objectFit="contain" />
-                    </div>
-                </motion.div>
+        <ProjectPageLayout
+            metaTitle={metaTitle}
+            metaDescription={metaDescription}
+            pageTitle={pageTitle}
+            projectImage="/Charla.png"
+            description={description}
+            technologies={technologies}
+            githubUrl={githubUrl}
+            liveUrl={liveUrl}
+        />
+    );
+};
 
-                <div className="relative z-10 flex flex-col md:flex-row w-full h-full">
-                    <div className="flex-[3] flex items-center justify-center mt-[200px] md:mt-0">
-                        <h1
-                            className={`text-6xl md:text-8xl font-black text-white ${classicFont} font-bold md:absolute md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2`}
-                        >
-                            CHARLA
-                        </h1>
-                    </div>
-
-                    <motion.div
-                        className="flex-1 flex flex-col justify-center items-center md:items-start px-4 md:px-12 mt-4 md:mt-0"
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                    >
-                        <p className="text-white text-center md:text-center text-sm md:text-base mt-4 md:mt-16 max-w-[90%] md:max-w-none">
-                            For this project, I used the skills below to create a Speech-to-text app.
-                            <br />
-                            <br />
-                            The goal of this project was to create a Speech-to-text app using the OPENAI API key, allowing you to send
-                            messages that were originally your speech.
-                            <br />
-                            <br />
-                            Click on the GitHub logo or the globe logo below for the result. <br />
-                        </p>
-
-                        <section className="bg-black bg-opacity-50 py-12">
-                            <div className="container mx-auto px-4">
-                                <div className="flex flex-wrap justify-center gap-4 w-full ">
-                                    {[
-                                        { name: "Next.js" },
-                                        { name: "Tailwind CSS" },
-                                        {
-                                            name: "JavaScript",
-                                        },
-                                        { name: "Figma" },
-                                        { name: "VS Code" },
-                                        { name: "OpenAI" },
-                                    ].map((skill, index) => (
-                                        <motion.a
-                                            key={index}
-                                            className="flex items-center bg-blue-500 text-white text-xs font-semibold mr-2 px-4 py-2 rounded transition-all hover:bg-blue-600 hover:scale-105"
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            <span className="text-sm">{skill.name}</span>
-                                        </motion.a>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        <div className="flex justify-center w-full space-x-6 mb-4 md:mb-0 md:mr-12 mt-4">
-                            <motion.a
-                                href="https://github.com/RoyvHeeswijk/persoonlijikproject"
-                                className="text-white hover:text-blue-300 transition-colors"
-                                aria-label="GitHub Repository"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                            >
-                                <Github size={36} />
-                            </motion.a>
-                            <motion.a
-                                href="https://persoonlijkproject-saj9.vercel.app/"
-                                className="text-white hover:text-blue-300 transition-colors"
-                                aria-label="Live Demo"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                            >
-                                <Globe size={36} />
-                            </motion.a>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-            <motion.section
-                id="otherprojects"
-                className="mt-8 md:mt-2"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-            >
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold mb-12 text-center text-white">My Projects</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {projects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                            >
-                                <Link href={project.href}>
-                                    <div className="bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 transform hover:scale-105 border-2 border-gray-800 border-opacity-50 h-full flex flex-col">
-                                        <img
-                                            src={project.image || "/placeholder.svg"}
-                                            alt={project.title}
-                                            className="w-full h-48 object-cover"
-                                        />
-                                        <div className="p-6 flex flex-col justify-between flex-grow">
-                                            <div>
-                                                <h3 className="text-xl font-semibold mb-2 text-white">{project.title}</h3>
-                                                <p className="text-gray-400">{project.description}</p>
-                                            </div>
-                                            <div className="mt-2">
-                                                {project.tags.map((tag) => (
-                                                    <span
-                                                        key={tag}
-                                                        className="inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                                                    >
-                                                        {tag}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </motion.section>
-            <div className="bg-black h-20" /> {/* Added a black background for the margin below the section */}
-        </main>
-    )
-}
+export default CharlaProjectPage;
 

@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="8" fill="#0F172A" />
+  
+  <!-- Stylized RH Monogram -->
+  <path d="M8 8H14C16.2091 8 18 9.79086 18 12V13C18 15.2091 16.2091 17 14 17H11V24H8V8Z" fill="#5EEAD4"/>
+  <path d="M20 8H23V15L26 15V18H23V24H20V8Z" fill="#5EEAD4"/>
+  <path d="M11 24L17 17H14C12.3431 17 11 15.6569 11 14V11H8V24H11Z" fill="#0F172A"/>
+  <path d="M23 15V18H26L23 15Z" fill="#0F172A"/>
+</svg> 

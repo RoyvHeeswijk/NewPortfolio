@@ -1,5 +1,10 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Inter } from 'next/font/google';
+import { ThemeProvider } from 'next-themes';
+import Layout from '../components/layout/Layout';
+
+const inter = Inter({ subsets: ['latin'] });
 
 // The error "Cannot find module 'next/app' or its corresponding type declarations"
 // indicates that TypeScript cannot find the type definitions for next/app.
@@ -19,5 +24,13 @@ import type { AppProps } from "next/app";
 // - Passes props through to each page component
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark">
+      <main className={`${inter.className} min-h-screen bg-gradient-to-b from-gray-900 to-black text-white`}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </main>
+    </ThemeProvider>
+  );
 }
