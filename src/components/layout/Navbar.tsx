@@ -1,105 +1,147 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { FaCode } from 'react-icons/fa';
 
 const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Over Mij', path: '/#about-me' },
     { name: 'Projecten', path: '/#projects' },
-    { name: 'Skills', path: '/#skills' },
     { name: 'Contact', path: '/#contact' },
 ];
+
+const teal = 'hsl(172, 66%, 50%)';
+const muted = 'hsl(215, 12%, 55%)';
+const borderColor = 'hsl(220, 14%, 16%)';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
+        const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
         <nav
-            className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/95 backdrop-blur-sm py-4' : 'bg-transparent py-6'
-                }`}
+            className={`fixed w-full z-50 transition-all duration-500 ${
+                scrolled ? 'backdrop-blur-xl py-4' : 'bg-transparent py-6'
+            }`}
+            style={scrolled ? { backgroundColor: 'hsl(220, 20%, 4%, 0.85)', borderBottom: `1px solid ${borderColor}` } : {}}
         >
-            <div className="container mx-auto px-4">
+            <div className="max-w-[1200px] mx-auto px-8">
                 <div className="flex items-center justify-between">
                     <Link href="/">
-                        <motion.div
-                            className="flex items-center space-x-2"
+                        <motion.span
+                            className="text-xl font-bold"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5 }}
+                            whileHover={{ scale: 1.03 }}
                         >
-                            <FaCode className="text-teal-400 text-xl" />
-                            <span className="text-2xl font-bold text-teal-400">
-                                Roy v Heeswijk
-                            </span>
-                        </motion.div>
+                            Roy <span className="text-gradient">v Heeswijk</span>
+                        </motion.span>
                     </Link>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.path}
-                                href={item.path}
-                                className={`text-sm font-medium transition-colors hover:text-teal-400 ${(pathname === "/" && item.path.includes("#")) ||
-                                    pathname === item.path ||
-                                    (item.path !== "/" && pathname?.startsWith(item.path.split("#")[0]))
-                                    ? "text-teal-400"
-                                    : "text-gray-300"
-                                    }`}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
+                    <div className="hidden md:flex items-center gap-8">
+                        {navItems.map((item, index) => {
+                            const isActive =
+                                (pathname === "/" && item.path.includes("#")) ||
+                                pathname === item.path ||
+                                (item.path !== "/" && pathname?.startsWith(item.path.split("#")[0]));
+                            const isHovered = hoveredIdx === index;
+                            const showBar = isHovered || isActive;
+                            return (
+                                <Link key={item.path} href={item.path}>
+                                    <motion.div
+                                        className="relative text-sm font-medium py-2 px-1"
+                                        style={{ color: isActive ? teal : muted }}
+                                        onMouseEnter={() => setHoveredIdx(index)}
+                                        onMouseLeave={() => setHoveredIdx(null)}
+                                        animate={{ color: isHovered ? teal : isActive ? teal : muted }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {item.name}
+                                        {showBar && (
+                                            <motion.div
+                                                className="absolute bottom-0 left-0 right-0 rounded-full"
+                                                style={{ backgroundColor: teal }}
+                                                layoutId="nav-underline"
+                                                animate={{
+                                                    opacity: isHovered ? 1 : 0.85,
+                                                    height: isHovered ? 3 : 2,
+                                                    boxShadow: isHovered ? `0 0 10px 1px hsla(172, 66%, 50%, 0.5)` : '0 0 0 transparent',
+                                                }}
+                                                transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+                                            />
+                                        )}
+                                    </motion.div>
+                                </Link>
+                            );
+                        })}
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="md:hidden text-gray-300 hover:text-white"
+                    <motion.button
+                        className="md:hidden"
+                        style={{ color: muted }}
                         onClick={() => setIsOpen(!isOpen)}
+                        aria-label="Menu"
+                        whileTap={{ scale: 0.9, rotate: 90 }}
+                        transition={{ duration: 0.2 }}
                     >
                         {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-                    </button>
+                    </motion.button>
                 </div>
 
-                {/* Mobile Navigation */}
-                <motion.div
-                    className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -20 }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <div className="py-4 space-y-4 bg-gray-900/95 backdrop-blur-sm rounded-b-lg shadow-xl">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.path}
-                                href={item.path}
-                                className={`block text-center py-2 text-sm font-medium transition-colors hover:text-teal-400 active:text-teal-500 ${(pathname === "/" && item.path.includes("#")) ||
-                                    pathname === item.path ||
-                                    (item.path !== "/" && pathname?.startsWith(item.path.split("#")[0]))
-                                    ? "text-teal-400"
-                                    : "text-gray-300"
-                                    }`}
-                                onClick={() => setIsOpen(false)}
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            className="md:hidden overflow-hidden"
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <div
+                                className="pt-4 pb-3 mt-4 space-y-1 rounded-xl px-3 backdrop-blur-xl"
+                                style={{ backgroundColor: 'hsl(220, 18%, 7%, 0.95)', border: `1px solid ${borderColor}` }}
                             >
-                                {item.name}
-                            </Link>
-                        ))}
-                    </div>
-                </motion.div>
+                                {navItems.map((item, i) => {
+                                    const isActive =
+                                        (pathname === "/" && item.path.includes("#")) ||
+                                        pathname === item.path ||
+                                        (item.path !== "/" && pathname?.startsWith(item.path.split("#")[0]));
+                                    return (
+                                        <motion.div
+                                            key={item.path}
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: i * 0.05, duration: 0.2 }}
+                                        >
+                                            <Link
+                                                href={item.path}
+                                                className="block py-3 px-3 text-sm font-medium rounded-lg transition-all duration-300"
+                                                style={{
+                                                    color: isActive ? teal : muted,
+                                                    backgroundColor: isActive ? 'hsl(172, 66%, 50%, 0.08)' : 'transparent',
+                                                }}
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </nav>
     );
-} 
+}

@@ -10,19 +10,36 @@ interface ProjectPageLayoutProps {
     metaTitle: string;
     metaDescription: string;
     pageTitle: string;
-    projectImage?: string; // Optioneel, voor een hoofd afbeelding
-    projectVideoId?: string; // Optioneel, voor een YouTube video ID
-    description: ReactNode; // Kan JSX bevatten voor rijkere content
+    projectImage?: string;
+    projectVideoId?: string;
+    description: ReactNode;
     technologies: string[];
     githubUrl?: string;
     liveUrl?: string;
-    children?: ReactNode; // Voor extra content zoals image galleries
+    children?: ReactNode;
 }
+
+const teal = 'hsl(172, 66%, 50%)';
+const teal10 = 'hsl(172, 66%, 50%, 0.1)';
+const teal20 = 'hsl(172, 66%, 50%, 0.2)';
+const cardBg = 'hsl(220, 18%, 7%)';
+const borderColor = 'hsl(220, 14%, 16%)';
+const mutedText = 'hsl(215, 12%, 55%)';
+const lightText = 'hsl(210, 20%, 92%)';
 
 const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+};
+
+const fadeInLeft = {
+    initial: { opacity: 0, x: -30 },
+    animate: { opacity: 1, x: 0 },
+};
+
+const fadeInRight = {
+    initial: { opacity: 0, x: 30 },
+    animate: { opacity: 1, x: 0 },
 };
 
 export default function ProjectPageLayout({
@@ -47,32 +64,46 @@ export default function ProjectPageLayout({
             <Navbar />
 
             <motion.div
-                className="container mx-auto px-4 py-12 md:py-20 min-h-screen"
+                className="max-w-[1200px] mx-auto px-8 py-12 md:py-20 min-h-screen"
                 initial="initial"
                 animate="animate"
-                variants={{ animate: { transition: { staggerChildren: 0.1 } } }}
+                variants={{ animate: { transition: { staggerChildren: 0.12 } } }}
             >
-                {/* Back Button */}
-                <motion.div variants={fadeInUp} className="mb-8 md:mb-12">
+                <motion.div variants={fadeInUp} transition={{ duration: 0.5 }} className="mb-8 md:mb-12">
                     <Link href="/#projects" legacyBehavior>
-                        <a className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors group">
-                            <FaArrowLeft size={16} className="mr-2 transition-transform group-hover:-translate-x-1" />
+                        <motion.a
+                            className="inline-flex items-center text-sm font-medium group cursor-pointer"
+                            style={{ color: teal }}
+                            whileHover={{ x: -6 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <FaArrowLeft size={14} className="mr-2" />
                             Terug naar projecten
-                        </a>
+                        </motion.a>
                     </Link>
                 </motion.div>
 
-                {/* Page Title */}
-                <motion.h1
-                    variants={fadeInUp}
-                    className="text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-white text-center bg-gradient-to-r from-purple-400 via-teal-400 to-blue-500 text-transparent bg-clip-text"
-                >
-                    {pageTitle}
-                </motion.h1>
+                <motion.div variants={fadeInUp} transition={{ duration: 0.6 }} className="mb-8">
+                    <h1 className="text-4xl md:text-5xl font-bold">
+                        <span className="text-gradient">{pageTitle}</span>
+                    </h1>
+                    <motion.div
+                        className="h-1 rounded-full mt-4"
+                        style={{ background: `linear-gradient(90deg, ${teal}, hsl(200, 80%, 60%))` }}
+                        initial={{ width: 0 }}
+                        animate={{ width: 64 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                    />
+                </motion.div>
 
-                {/* Optional Project Media (Video or Image) */}
                 {projectVideoId && (
-                    <motion.div variants={fadeInUp} className="my-8 md:my-12 rounded-xl overflow-hidden shadow-2xl aspect-video max-w-4xl mx-auto">
+                    <motion.div
+                        variants={fadeInUp}
+                        transition={{ duration: 0.6 }}
+                        className="my-8 md:my-12 rounded-2xl overflow-hidden aspect-video max-w-4xl"
+                        style={{ border: `1px solid ${borderColor}` }}
+                        whileHover={{ boxShadow: `0 0 40px -10px hsl(172, 66%, 50%, 0.2)` }}
+                    >
                         <iframe
                             className="w-full h-full"
                             src={`https://www.youtube.com/embed/${projectVideoId}`}
@@ -84,77 +115,106 @@ export default function ProjectPageLayout({
                     </motion.div>
                 )}
                 {!projectVideoId && projectImage && (
-                    <motion.div variants={fadeInUp} className="my-8 md:my-12 rounded-xl overflow-hidden shadow-2xl max-w-4xl mx-auto">
+                    <motion.div
+                        variants={fadeInUp}
+                        transition={{ duration: 0.6 }}
+                        className="my-8 md:my-12 rounded-2xl overflow-hidden max-w-4xl"
+                        style={{ border: `1px solid ${borderColor}` }}
+                        whileHover={{ boxShadow: `0 0 40px -10px hsl(172, 66%, 50%, 0.2)`, scale: 1.005 }}
+                    >
                         <Image
                             src={projectImage}
                             alt={`Hoofdafbeelding voor ${pageTitle}`}
                             width={1200}
-                            height={675} // Assuming 16:9 aspect ratio
+                            height={675}
                             className="object-cover w-full h-auto"
                             priority
                         />
                     </motion.div>
                 )}
 
-                {/* Main Content Area */}
-                <motion.div
-                    variants={fadeInUp}
-                    className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-12"
-                >
-                    {/* Left Column: Description & Custom Content */}
-                    <div className="lg:col-span-2 bg-gray-800/50 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-xl">
-                        <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-white">Projectbeschrijving</h2>
-                        <div className="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mt-8 md:mt-12">
+                    <motion.div
+                        className="lg:col-span-2 p-6 md:p-8 rounded-2xl"
+                        style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
+                        variants={fadeInLeft}
+                        transition={{ duration: 0.6 }}
+                        whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
+                    >
+                        <h2 className="text-2xl md:text-3xl font-semibold mb-4" style={{ color: lightText }}>
+                            Projectbeschrijving
+                        </h2>
+                        <div className="prose prose-invert prose-lg max-w-none leading-relaxed" style={{ color: mutedText }}>
                             {description}
                         </div>
                         {children && <div className="mt-8">{children}</div>}
-                    </div>
+                    </motion.div>
 
-                    {/* Right Column: Details & Links */}
-                    <div className="lg:col-span-1 bg-gray-800/50 p-6 md:p-8 rounded-xl backdrop-blur-md shadow-xl h-fit lg:sticky lg:top-28">
-                        <h3 className="text-xl md:text-2xl font-semibold mb-4 text-white">Details</h3>
+                    <motion.div
+                        className="lg:col-span-1 p-6 md:p-8 rounded-2xl h-fit lg:sticky lg:top-28"
+                        style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
+                        variants={fadeInRight}
+                        transition={{ duration: 0.6 }}
+                        whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
+                    >
+                        <h3 className="text-xl md:text-2xl font-semibold mb-5" style={{ color: lightText }}>Details</h3>
 
                         <div className="mb-6">
-                            <h4 className="text-lg font-medium mb-2 text-teal-400">Gebruikte Technologieën:</h4>
+                            <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: teal }}>
+                                Technologieën
+                            </h4>
                             <div className="flex flex-wrap gap-2">
-                                {technologies.map(tech => (
-                                    <span key={tech} className="px-3 py-1 bg-gray-700/70 text-gray-300 text-xs font-medium rounded-full">
+                                {technologies.map((tech, i) => (
+                                    <motion.span
+                                        key={tech}
+                                        className="px-3 py-1 text-xs font-medium rounded-full"
+                                        style={{ backgroundColor: teal10, color: teal, border: `1px solid ${teal20}` }}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.5 + i * 0.05, duration: 0.3 }}
+                                        whileHover={{ scale: 1.1, boxShadow: `0 0 12px -4px hsl(172, 66%, 50%, 0.3)` }}
+                                    >
                                         {tech}
-                                    </span>
+                                    </motion.span>
                                 ))}
                             </div>
                         </div>
 
                         {(githubUrl || liveUrl) && (
-                            <div className="space-y-3">
+                            <div className="space-y-3 pt-5" style={{ borderTop: `1px solid ${borderColor}` }}>
                                 {liveUrl && (
-                                    <a
+                                    <motion.a
                                         href={liveUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold rounded-lg hover:from-teal-600 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 shadow-md w-full"
+                                        className="flex items-center justify-center px-6 py-3 font-semibold rounded-lg w-full text-sm"
+                                        style={{ backgroundColor: teal, color: 'hsl(220, 20%, 4%)' }}
+                                        whileHover={{ scale: 1.03, boxShadow: `0 0 25px -5px hsl(172, 66%, 50%, 0.4)` }}
+                                        whileTap={{ scale: 0.97 }}
+                                        transition={{ duration: 0.15 }}
                                     >
                                         <FaExternalLinkAlt className="mr-2" /> Bekijk Live Project
-                                    </a>
+                                    </motion.a>
                                 )}
                                 {githubUrl && (
-                                    <a
+                                    <motion.a
                                         href={githubUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center justify-center px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors duration-300 shadow-md w-full"
+                                        className="flex items-center justify-center px-6 py-3 font-semibold rounded-lg w-full text-sm"
+                                        style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}`, color: mutedText }}
+                                        whileHover={{ scale: 1.03, borderColor: teal, color: lightText }}
+                                        whileTap={{ scale: 0.97 }}
+                                        transition={{ duration: 0.15 }}
                                     >
                                         <FaGithub className="mr-2" /> Bekijk op GitHub
-                                    </a>
+                                    </motion.a>
                                 )}
                             </div>
                         )}
-                    </div>
-                </motion.div>
-
+                    </motion.div>
+                </div>
             </motion.div>
-
-            {/* <Footer /> */}
         </>
     );
-} 
+}

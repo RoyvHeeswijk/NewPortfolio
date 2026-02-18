@@ -109,11 +109,10 @@ const ThreeJsProjectPage = () => {
                 animaties en gebruikersinteractie in de browser.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
-                {/* Sphere Section */}
-                <div className="bg-gray-700/50 p-6 rounded-lg shadow-lg">
-                    <h3 className="text-2xl font-semibold mb-3 text-teal-400">Sphere</h3>
-                    <p className="mb-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                <div className="p-6 rounded-xl" style={{ backgroundColor: 'hsl(220, 16%, 12%)', border: '1px solid hsl(220, 14%, 16%)' }}>
+                    <h3 className="text-xl font-semibold mb-3" style={{ color: 'hsl(172, 66%, 50%)' }}>Sphere</h3>
+                    <p className="mb-4 text-sm" style={{ color: 'hsl(215, 12%, 55%)' }}>
                         Een geanimeerde 3D-bol die continu roteert, wat de basisprincipes van scene setup,
                         camera, geometrie en materiaal in THREE.js demonstreert.
                     </p>
@@ -121,26 +120,31 @@ const ThreeJsProjectPage = () => {
                         <motion.a
                             href="https://github.com/RoyvHeeswijk"
                             target="_blank" rel="noopener noreferrer"
-                            className="flex items-center text-gray-300 hover:text-teal-300 transition-colors"
+                            className="flex items-center text-sm transition-colors"
+                            style={{ color: 'hsl(215, 12%, 55%)' }}
                             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(172, 66%, 50%)'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(215, 12%, 55%)'}
                         >
-                            <Github size={20} className="mr-2" /> Sphere GitHub
+                            <Github size={16} className="mr-2" /> GitHub
                         </motion.a>
                         <motion.a
                             href="https://i539880.hera.fontysict.net/portfolio/livewall2/persoonlijk3/index.html"
                             target="_blank" rel="noopener noreferrer"
-                            className="flex items-center text-gray-300 hover:text-teal-300 transition-colors"
+                            className="flex items-center text-sm transition-colors"
+                            style={{ color: 'hsl(215, 12%, 55%)' }}
                             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(172, 66%, 50%)'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(215, 12%, 55%)'}
                         >
-                            <Globe size={20} className="mr-2" /> Sphere Live Demo
+                            <Globe size={16} className="mr-2" /> Live Demo
                         </motion.a>
                     </div>
                 </div>
 
-                {/* Dice Section */}
-                <div className="bg-gray-700/50 p-6 rounded-lg shadow-lg">
-                    <h3 className="text-2xl font-semibold mb-3 text-teal-400">Dice</h3>
-                    <p className="mb-4 text-sm">
+                <div className="p-6 rounded-xl" style={{ backgroundColor: 'hsl(220, 16%, 12%)', border: '1px solid hsl(220, 14%, 16%)' }}>
+                    <h3 className="text-xl font-semibold mb-3" style={{ color: 'hsl(172, 66%, 50%)' }}>Dice</h3>
+                    <p className="mb-4 text-sm" style={{ color: 'hsl(215, 12%, 55%)' }}>
                         Een interactieve 3D-dobbelsteen. Dit onderdeel verkent complexere texturen,
                         event handling en mogelijk physics binnen THREE.js.
                     </p>
@@ -148,18 +152,24 @@ const ThreeJsProjectPage = () => {
                         <motion.a
                             href="https://github.com/RoyvHeeswijk"
                             target="_blank" rel="noopener noreferrer"
-                            className="flex items-center text-gray-300 hover:text-teal-300 transition-colors"
+                            className="flex items-center text-sm transition-colors"
+                            style={{ color: 'hsl(215, 12%, 55%)' }}
                             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(172, 66%, 50%)'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(215, 12%, 55%)'}
                         >
-                            <Github size={20} className="mr-2" /> Dice GitHub
+                            <Github size={16} className="mr-2" /> GitHub
                         </motion.a>
                         <motion.a
                             href="https://i539880.hera.fontysict.net/portfolio/livewall2/persoonlijk3.2/index.html"
                             target="_blank" rel="noopener noreferrer"
-                            className="flex items-center text-gray-300 hover:text-teal-300 transition-colors"
+                            className="flex items-center text-sm transition-colors"
+                            style={{ color: 'hsl(215, 12%, 55%)' }}
                             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(172, 66%, 50%)'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(215, 12%, 55%)'}
                         >
-                            <Globe size={20} className="mr-2" /> Dice Live Demo
+                            <Globe size={16} className="mr-2" /> Live Demo
                         </motion.a>
                     </div>
                 </div>
