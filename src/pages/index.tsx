@@ -25,8 +25,8 @@ const projectsData: Project[] = [
 ];
 
 const skillsData = [
-  "JavaScript", "React", "Next.js", "TypeScript", "HTML", "CSS", "Tailwind CSS",
-  "Node.js", "Git", "OpenAI", "VS Code", "Figma", "GitHub", "THREE.js", "Cursor",
+  "JavaScript", "React", "Next.js", "Vue.js", "Node.js", "Three.js", "TypeScript",
+  "HTML", "CSS", "Liquid", "Python", "Tailwind CSS", "GitHub", "Cursor", "Figma",
 ];
 
 const roles = ["Front End Developer", "UI Designer"];
