@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaArrowLeft, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import Navbar from './Navbar';
 
 interface ProjectPageLayoutProps {
     metaTitle: string;
@@ -61,8 +60,6 @@ export default function ProjectPageLayout({
                 <meta name="description" content={metaDescription} />
             </Head>
 
-            <Navbar />
-
             <motion.div
                 className="max-w-[1200px] mx-auto px-8 py-12 md:py-20 min-h-screen"
                 initial="initial"
@@ -72,8 +69,7 @@ export default function ProjectPageLayout({
                 <motion.div variants={fadeInUp} transition={{ duration: 0.5 }} className="mb-8 md:mb-12">
                     <Link href="/#projects" legacyBehavior>
                         <motion.a
-                            className="inline-flex items-center text-sm font-medium group cursor-pointer"
-                            style={{ color: teal }}
+                            className="inline-flex items-center text-sm font-medium group cursor-pointer text-[#2dd4bf]"
                             whileHover={{ x: -6 }}
                             transition={{ duration: 0.2 }}
                         >
@@ -84,16 +80,10 @@ export default function ProjectPageLayout({
                 </motion.div>
 
                 <motion.div variants={fadeInUp} transition={{ duration: 0.6 }} className="mb-8">
-                    <h1 className="text-4xl md:text-5xl font-bold">
-                        <span className="text-gradient">{pageTitle}</span>
-                    </h1>
-                    <motion.div
-                        className="h-1 rounded-full mt-4"
-                        style={{ background: `linear-gradient(90deg, ${teal}, hsl(200, 80%, 60%))` }}
-                        initial={{ width: 0 }}
-                        animate={{ width: 64 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                    />
+                    <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">
+                        {pageTitle}
+                    </h2>
+                    <div className="w-16 h-1 rounded-full mt-4" style={{ background: `linear-gradient(90deg, ${teal}, hsl(200, 80%, 60%))` }} />
                 </motion.div>
 
                 {projectVideoId && (
@@ -114,26 +104,8 @@ export default function ProjectPageLayout({
                         ></iframe>
                     </motion.div>
                 )}
-                {!projectVideoId && projectImage && (
-                    <motion.div
-                        variants={fadeInUp}
-                        transition={{ duration: 0.6 }}
-                        className="my-8 md:my-12 rounded-2xl overflow-hidden max-w-4xl"
-                        style={{ border: `1px solid ${borderColor}` }}
-                        whileHover={{ boxShadow: `0 0 40px -10px hsl(172, 66%, 50%, 0.2)`, scale: 1.005 }}
-                    >
-                        <Image
-                            src={projectImage}
-                            alt={`Hoofdafbeelding voor ${pageTitle}`}
-                            width={1200}
-                            height={675}
-                            className="object-cover w-full h-auto"
-                            priority
-                        />
-                    </motion.div>
-                )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mt-8 md:mt-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mt-6 md:mt-8">
                     <motion.div
                         className="lg:col-span-2 p-6 md:p-8 rounded-2xl"
                         style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
@@ -150,18 +122,37 @@ export default function ProjectPageLayout({
                         {children && <div className="mt-8">{children}</div>}
                     </motion.div>
 
-                    <motion.div
-                        className="lg:col-span-1 p-6 md:p-8 rounded-2xl h-fit lg:sticky lg:top-28"
-                        style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
-                        variants={fadeInRight}
-                        transition={{ duration: 0.6 }}
-                        whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
-                    >
+                    <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
+                        {projectImage && !projectVideoId && (
+                            <motion.div
+                                className="p-6 md:p-8 rounded-2xl flex items-center justify-center"
+                                style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
+                                variants={fadeInRight}
+                                transition={{ duration: 0.6 }}
+                                whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
+                            >
+                                <Image
+                                    src={projectImage}
+                                    alt={`Logo voor ${pageTitle}`}
+                                    width={240}
+                                    height={90}
+                                    className="object-contain w-full h-auto max-h-20 md:max-h-24"
+                                    priority
+                                />
+                            </motion.div>
+                        )}
+                        <motion.div
+                            className="p-6 md:p-8 rounded-2xl h-fit"
+                            style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
+                            variants={fadeInRight}
+                            transition={{ duration: 0.6 }}
+                            whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
+                        >
                         <h3 className="text-xl md:text-2xl font-semibold mb-5" style={{ color: lightText }}>Details</h3>
 
                         <div className="mb-6">
                             <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: teal }}>
-                                Technologieën
+                                Skills
                             </h4>
                             <div className="flex flex-wrap gap-2">
                                 {technologies.map((tech, i) => (
@@ -212,7 +203,8 @@ export default function ProjectPageLayout({
                                 )}
                             </div>
                         )}
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </div>
             </motion.div>
         </>

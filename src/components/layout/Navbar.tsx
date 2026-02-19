@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Over Mij', path: '/#about-me' },
-    { name: 'Projecten', path: '/#projects' },
-    { name: 'Contact', path: '/#contact' },
+    { name: 'Home', path: '/', hash: null },
+    { name: 'Over Mij', path: '/#about-me', hash: 'about-me' },
+    { name: 'Projecten', path: '/#projects', hash: 'projects' },
+    { name: 'Contact', path: '/#contact', hash: 'contact' },
 ];
 
 const teal = 'hsl(172, 66%, 50%)';
@@ -19,6 +19,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+    const [currentHash, setCurrentHash] = useState('');
     const pathname = usePathname();
 
     useEffect(() => {
@@ -26,6 +27,41 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        const hash = typeof window !== 'undefined' ? window.location.hash.slice(1) : '';
+        setCurrentHash(hash);
+        const handleHashChange = () => setCurrentHash(window.location.hash.slice(1));
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, [pathname]);
+
+    useEffect(() => {
+        if (pathname !== '/') return;
+        const sections = ['about-me', 'projects', 'contact'];
+        const handleScroll = () => {
+            if (window.scrollY < 100 && !window.location.hash) {
+                setCurrentHash('');
+                return;
+            }
+            let activeSection = '';
+            let maxTop = -Infinity;
+            for (const id of sections) {
+                const el = document.getElementById(id);
+                if (el) {
+                    const top = el.getBoundingClientRect().top;
+                    if (top <= 200 && top > maxTop) {
+                        maxTop = top;
+                        activeSection = id;
+                    }
+                }
+            }
+            if (activeSection) setCurrentHash(activeSection);
+        };
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [pathname]);
 
     return (
         <nav
@@ -50,10 +86,9 @@ export default function Navbar() {
 
                     <div className="hidden md:flex items-center gap-8">
                         {navItems.map((item, index) => {
-                            const isActive =
-                                (pathname === "/" && item.path.includes("#")) ||
-                                pathname === item.path ||
-                                (item.path !== "/" && pathname?.startsWith(item.path.split("#")[0]));
+                            const isActive = pathname === '/'
+                                ? (item.hash ? currentHash === item.hash : !currentHash)
+                                : (item.path === '/');
                             const isHovered = hoveredIdx === index;
                             const showBar = isHovered || isActive;
                             return (
@@ -112,10 +147,9 @@ export default function Navbar() {
                                 style={{ backgroundColor: 'hsl(220, 18%, 7%, 0.95)', border: `1px solid ${borderColor}` }}
                             >
                                 {navItems.map((item, i) => {
-                                    const isActive =
-                                        (pathname === "/" && item.path.includes("#")) ||
-                                        pathname === item.path ||
-                                        (item.path !== "/" && pathname?.startsWith(item.path.split("#")[0]));
+                                    const isActive = pathname === '/'
+                                        ? (item.hash ? currentHash === item.hash : !currentHash)
+                                        : (item.path === '/');
                                     return (
                                         <motion.div
                                             key={item.path}

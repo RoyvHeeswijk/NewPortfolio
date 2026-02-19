@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, MouseEvent as ReactMouseEvent } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -14,19 +15,20 @@ interface Project {
   image: string;
   tags: string[];
   github?: string;
-  live?: string;
+  live: string;
+  liveDemo?: string;
 }
 
 const projectsData: Project[] = [
-  { id: 1, title: "Sphere & Dice", description: "3D interactieve ervaring met een roterende bol en dobbelsteen, gebouwd met THREE.js.", image: "/Threejs.png", tags: ["THREE.js", "JavaScript", "3D Graphics"], github: "https://github.com/RoyvHeeswijk", live: "/Threejs" },
-  { id: 2, title: "Charla — Spraak-naar-Tekst", description: "Real-time spraak-naar-tekst applicatie, mogelijk gemaakt door Next.js en OpenAI API.", image: "/Charla.png", tags: ["Next.js", "React", "TypeScript", "OpenAI API"], github: "https://github.com/RoyvHeeswijk", live: "/Charla" },
-  { id: 3, title: "Upendo E-commerce", description: "Modern e-commerce platform met productfiltering en Storyblok CMS.", image: "/Upendo.png", tags: ["Next.js", "Tailwind CSS", "Storyblok"], github: "https://github.com/RoyvHeeswijk", live: "/Upendo" },
-  { id: 4, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "AI", "React", "OpenAI API"], github: "https://github.com/RoyvHeeswijk", live: "/CineMatchpage" },
+  { id: 1, title: "Charla — Spraak-naar-Tekst", description: "Real-time spraak-naar-tekst applicatie, mogelijk gemaakt door Next.js en OpenAI API.", image: "/Charla.png", tags: ["Next.js", "React", "TypeScript", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk", live: "/Charla", liveDemo: "https://persoonlijkproject-saj9.vercel.app/" },
+  { id: 2, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk", live: "/CineMatchpage" },
+  { id: 3, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
 ];
 
 const skillsData = [
   "JavaScript", "React", "Next.js", "Vue.js", "Node.js", "Three.js", "TypeScript",
-  "HTML", "CSS", "Liquid", "Python", "Tailwind CSS", "GitHub", "Cursor", "Figma",
+  "HTML", "CSS", "Liquid", "Python", "Tailwind CSS", "GitHub", "Cursor", "Figma", "Lovable",
+  "OpenAI API", "AI",
 ];
 
 const roles = ["Front End Developer", "UI Designer"];
@@ -48,18 +50,29 @@ function useTypewriter(words: string[], speed = 80, pause = 2000) {
   const [text, setText] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const current = words[wordIndex];
+
+    // Wacht op pauze voordat we gaan deleten (alleen wanneer het woord volledig getypt is)
+    if (!isDeleting && text === current && current.length > 0) {
+      pauseTimeoutRef.current = setTimeout(() => setIsDeleting(true), pause);
+      return () => {
+        if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+        pauseTimeoutRef.current = null;
+      };
+    }
+
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        setText(current.slice(0, text.length + 1));
-        if (text.length + 1 === current.length) {
-          setTimeout(() => setIsDeleting(true), pause);
+        if (text.length < current.length) {
+          setText(current.slice(0, text.length + 1));
         }
       } else {
-        setText(current.slice(0, text.length - 1));
-        if (text.length === 0) {
+        if (text.length > 0) {
+          setText(current.slice(0, text.length - 1));
+        } else {
           setIsDeleting(false);
           setWordIndex((prev) => (prev + 1) % words.length);
         }
@@ -72,6 +85,45 @@ function useTypewriter(words: string[], speed = 80, pause = 2000) {
   return text;
 }
 
+// ── Scramble Typewriter voor naam (random letters → juiste letter,zelfde tempo) ──
+
+const NAME_TARGET = "Roy v Heeswijk";
+const RANDOM_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+
+function useScrambleName(speed = 70) {
+  const [mounted, setMounted] = useState(false);
+  const [revealedLength, setRevealedLength] = useState(0);
+  const [randomChar, setRandomChar] = useState('R'); // Vaste waarde voor SSR, wordt overschreven na mount
+
+  useEffect(() => setMounted(true), []);
+
+  // Snel wisselende random letter voor de huidige positie (alleen op client)
+  useEffect(() => {
+    if (!mounted || revealedLength >= NAME_TARGET.length) return;
+    const interval = setInterval(() => {
+      setRandomChar(RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)]);
+    }, 40);
+    return () => clearInterval(interval);
+  }, [mounted, revealedLength]);
+
+  // Elke `speed` ms één letter verder (zelfde tempo als role typewriter)
+  useEffect(() => {
+    if (!mounted || revealedLength >= NAME_TARGET.length) return;
+    const timeout = setTimeout(() => setRevealedLength((p) => p + 1), speed);
+    return () => clearTimeout(timeout);
+  }, [mounted, revealedLength, speed]);
+
+  // Server en eerste client render: vaste naam (voorkomt hydration mismatch)
+  if (!mounted) return NAME_TARGET;
+
+  const display =
+    revealedLength < NAME_TARGET.length
+      ? NAME_TARGET.slice(0, revealedLength) + randomChar
+      : NAME_TARGET;
+
+  return display;
+}
+
 // ── Animation Variants ──
 
 const fadeInUp = { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 } };
@@ -82,15 +134,40 @@ const stagger = { animate: { transition: { staggerChildren: 0.1 } } };
 // ── Page ──
 
 export default function HomePage() {
+  const pathname = usePathname();
   const [heroHovered, setHeroHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [glowStrength, setGlowStrength] = useState(0.08);
   const [glowSize, setGlowSize] = useState(600);
   const pageRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const typedRole = useTypewriter(roles, 70, 2200);
+  const typedRole = useTypewriter(roles, 90, 2800);
+  const typedName = useScrambleName(90);
 
   const { scrollYProgress } = useScroll();
+
+  // Scroll naar hash-sectie zodat Over Mij, Projecten, Contact werken (homepage én vanaf projectpagina's)
+  useEffect(() => {
+    if (pathname !== '/') return;
+
+    const scrollToHash = () => {
+      const hash = typeof window !== 'undefined' ? window.location.hash : '';
+      if (hash) {
+        const id = hash.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    };
+
+    const timer = setTimeout(scrollToHash, 100);
+    window.addEventListener('hashchange', scrollToHash);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', scrollToHash);
+    };
+  }, [pathname]);
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   const handlePageMouse = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
@@ -173,7 +250,16 @@ export default function HomePage() {
                 variants={fadeInUp}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                <span className="text-gradient">Roy</span> van Heeswijk
+                {typedName.slice(0, 4)}
+                <span className="text-gradient">{typedName.slice(4)}</span>
+                {typedName.length < NAME_TARGET.length && (
+                  <motion.span
+                    className="inline-block w-[3px] h-[0.9em] ml-0.5 align-middle"
+                    style={{ backgroundColor: teal }}
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
+                  />
+                )}
               </motion.h1>
               <motion.p
                 className="text-base md:text-lg leading-relaxed max-w-lg mb-10"
@@ -181,7 +267,7 @@ export default function HomePage() {
                 variants={fadeInUp}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Ik creëer interactieve gebruikersinterfaces en zet designs om in vloeiende webapplicaties met moderne technologieën zoals React en Next.js.
+                Ik creëer interactieve gebruikersinterfaces en zet designs om in vloeiende webapplicaties. Met AI als hulpmiddel zorg ik voor een soepel en efficiënt proces van idee tot eindresultaat.
               </motion.p>
               <motion.div
                 className="flex flex-row items-center justify-center md:justify-start gap-4"
@@ -275,7 +361,7 @@ export default function HomePage() {
               <div className="space-y-5 text-base leading-relaxed" style={{ color: mutedText }}>
                 <p>
                   Als 20-jarige student ICT & Human Centered Design aan Fontys in Tilburg, breng ik mijn passie voor
-                  technologie en creativiteit samen in elk project. Geboren in Drunen, heb ik me
+                  technologie en creativiteit samen in elk project. Geboren in Drunen, heb ik mezelf
                   ontwikkeld tot een gedreven front-end developer die graag nieuwe uitdagingen aangaat.
                 </p>
                 <p>
@@ -374,7 +460,7 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
             variants={stagger}
             initial="initial"
             whileInView="animate"
@@ -385,7 +471,7 @@ export default function HomePage() {
                 key={project.id}
                 className="group rounded-2xl overflow-hidden transition-shadow duration-300"
                 style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
-                variants={i % 2 === 0 ? fadeInLeft : fadeInRight}
+                variants={i % 3 === 0 ? fadeInLeft : i % 3 === 1 ? fadeInUp : fadeInRight}
                 transition={{ duration: 0.6 }}
                 whileHover={{
                   borderColor: teal30,
@@ -435,17 +521,18 @@ export default function HomePage() {
                         <FaGithub size={15} /> GitHub
                       </motion.a>
                     )}
-                    {project.live && (
-                      <Link href={project.live}>
-                        <motion.span
-                          className="flex items-center gap-1.5 text-sm font-medium cursor-pointer"
-                          style={{ color: mutedText }}
-                          whileHover={{ x: 3, color: teal }}
-                          transition={{ duration: 0.15 }}
-                        >
-                          <FaExternalLinkAlt size={13} /> Live Demo
-                        </motion.span>
-                      </Link>
+                    {project.liveDemo && (
+                      <motion.a
+                        href={project.liveDemo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-sm font-medium"
+                        style={{ color: mutedText }}
+                        whileHover={{ x: 3, color: teal }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <FaExternalLinkAlt size={13} /> Live Demo
+                      </motion.a>
                     )}
                   </div>
                 </div>
