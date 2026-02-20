@@ -49,7 +49,7 @@ const CineMatchPageProject = () => {
     const metaDescription = "Ontdek CineMatch, een AI-gedreven platform door Roy van Heeswijk dat helpt de perfecte film te vinden op basis van jouw voorkeuren.";
     const technologies = ["Next.js", "React", "Tailwind CSS", "JavaScript", "OpenAI API", "Vercel"];
 
-    const githubUrl = "https://github.com/RoyvHeeswijk";
+    const githubUrl = "https://github.com/RoyvHeeswijk/CineMatch";
     // const liveUrl = "HIER_DE_LIVE_URL_INDIEN_BESCHIKBAAR"; // Toevoegen als je deze hebt
 
     const description = (

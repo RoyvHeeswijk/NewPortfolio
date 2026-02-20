@@ -17,12 +17,14 @@ interface Project {
   github?: string;
   live: string;
   liveDemo?: string;
+  logoImage?: boolean;
 }
 
 const projectsData: Project[] = [
-  { id: 1, title: "Charla — Spraak-naar-Tekst", description: "Real-time spraak-naar-tekst applicatie, mogelijk gemaakt door Next.js en OpenAI API.", image: "/Charla.png", tags: ["Next.js", "React", "TypeScript", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk", live: "/Charla", liveDemo: "https://persoonlijkproject-saj9.vercel.app/" },
-  { id: 2, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk", live: "/CineMatchpage" },
-  { id: 3, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
+  { id: 1, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
+  { id: 2, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
+  { id: 3, title: "Charla — Spraak-naar-Tekst", description: "Real-time spraak-naar-tekst applicatie, mogelijk gemaakt door Next.js en OpenAI API.", image: "/Charla.png", tags: ["Next.js", "React", "TypeScript", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk", live: "/Charla", liveDemo: "https://persoonlijkproject-saj9.vercel.app/" },
+  { id: 4, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk/CineMatch", live: "/CineMatchpage" },
 ];
 
 const skillsData = [
@@ -459,36 +461,32 @@ export default function HomePage() {
             <div className="w-16 h-1 rounded-full" style={{ background: `linear-gradient(90deg, ${teal}, hsl(200, 80%, 60%))` }} />
           </motion.div>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-            variants={stagger}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, amount: 0.1 }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projectsData.map((project, i) => (
               <motion.div
                 key={project.id}
-                className="group rounded-2xl overflow-hidden transition-shadow duration-300"
+                className="group rounded-2xl overflow-hidden transition-shadow duration-300 flex flex-col"
                 style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
-                variants={i % 3 === 0 ? fadeInLeft : i % 3 === 1 ? fadeInUp : fadeInRight}
-                transition={{ duration: 0.6 }}
+                initial={i % 2 === 0 ? { opacity: 0, x: -40 } : { opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
                 whileHover={{
                   borderColor: teal30,
                   boxShadow: `0 0 30px -10px hsl(172, 66%, 50%, 0.15)`,
                 }}
               >
                 <Link href={project.live || "#"}>
-                  <div className="relative h-40 md:h-48 w-full overflow-hidden">
-                    <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, hsl(220, 18%, 7%) 0%, transparent 60%)' }} />
+                  <div className={`relative h-40 md:h-48 w-full overflow-hidden flex items-center justify-center ${project.logoImage ? 'p-4' : ''}`} style={project.logoImage ? { backgroundColor: 'hsl(220, 18%, 7%)' } : {}}>
+                    <Image src={project.image} alt={project.title} fill className={project.logoImage ? 'object-contain object-center p-4 group-hover:scale-105 transition-transform duration-700 ease-out' : 'object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out'} />
+                    {!project.logoImage && <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, hsl(220, 18%, 7%) 0%, transparent 60%)' }} />}
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{ background: `radial-gradient(circle at 50% 50%, hsl(172, 66%, 50%, 0.08), transparent 70%)` }}
                     />
                   </div>
                 </Link>
-                <div className="p-5">
+                <div className="p-5 flex flex-col flex-1">
                   <Link href={project.live || "#"}>
                     <h3
                       className="text-lg font-semibold mb-2 transition-colors duration-200 cursor-pointer"
@@ -507,7 +505,7 @@ export default function HomePage() {
                       </span>
                     ))}
                   </div>
-                  <div className="flex items-center gap-5 pt-3" style={{ borderTop: `1px solid ${borderColor}` }}>
+                  <div className="flex items-center gap-5 pt-3 mt-auto" style={{ borderTop: `1px solid ${borderColor}` }}>
                     {project.github && (
                       <motion.a
                         href={project.github}
@@ -538,7 +536,7 @@ export default function HomePage() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 

@@ -125,20 +125,22 @@ export default function ProjectPageLayout({
                     <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
                         {projectImage && !projectVideoId && (
                             <motion.div
-                                className="p-6 md:p-8 rounded-2xl flex items-center justify-center"
+                                className="p-6 md:p-8 rounded-2xl flex items-center justify-center min-h-[100px]"
                                 style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
                                 variants={fadeInRight}
                                 transition={{ duration: 0.6 }}
                                 whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
                             >
-                                <Image
-                                    src={projectImage}
-                                    alt={`Logo voor ${pageTitle}`}
-                                    width={240}
-                                    height={90}
-                                    className="object-contain w-full h-auto max-h-20 md:max-h-24"
-                                    priority
-                                />
+                                <div className="flex justify-center items-center w-full">
+                                    <Image
+                                        src={projectImage}
+                                        alt={`Logo voor ${pageTitle}`}
+                                        width={220}
+                                        height={56}
+                                        className="object-contain object-center w-auto max-w-full max-h-14 md:max-h-16"
+                                        priority
+                                    />
+                                </div>
                             </motion.div>
                         )}
                         <motion.div
