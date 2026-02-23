@@ -44,6 +44,12 @@ export default function Navbar() {
                 setCurrentHash('');
                 return;
             }
+            const scrollBottom = Math.ceil(window.innerHeight + window.scrollY);
+            const atBottom = scrollBottom >= document.documentElement.scrollHeight - 100;
+            if (atBottom) {
+                setCurrentHash(sections[sections.length - 1]);
+                return;
+            }
             let activeSection = '';
             let maxTop = -Infinity;
             for (const id of sections) {
@@ -66,7 +72,7 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed w-full z-50 transition-all duration-500 ${
-                scrolled ? 'backdrop-blur-xl py-4' : 'bg-transparent py-6'
+                scrolled ? 'backdrop-blur-xl py-3.5' : 'bg-transparent py-5'
             }`}
             style={scrolled ? { backgroundColor: 'hsl(220, 20%, 4%, 0.85)', borderBottom: `1px solid ${borderColor}` } : {}}
         >
@@ -75,16 +81,16 @@ export default function Navbar() {
                     <Link href="/">
                         <motion.span
                             className="text-xl font-bold"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
                             whileHover={{ scale: 1.03 }}
                         >
                             Roy <span className="text-gradient">v Heeswijk</span>
                         </motion.span>
                     </Link>
 
-                    <div className="hidden md:flex items-center gap-8">
+                    <div className="hidden md:flex items-center gap-10">
                         {navItems.map((item, index) => {
                             const isActive = pathname === '/'
                                 ? (item.hash ? currentHash === item.hash : !currentHash)
@@ -94,7 +100,7 @@ export default function Navbar() {
                             return (
                                 <Link key={item.path} href={item.path}>
                                     <motion.div
-                                        className="relative text-sm font-medium py-2 px-1"
+                                        className="relative text-sm font-medium py-2.5 px-1"
                                         style={{ color: isActive ? teal : muted }}
                                         onMouseEnter={() => setHoveredIdx(index)}
                                         onMouseLeave={() => setHoveredIdx(null)}
@@ -102,19 +108,17 @@ export default function Navbar() {
                                         transition={{ duration: 0.2 }}
                                     >
                                         {item.name}
-                                        {showBar && (
-                                            <motion.div
-                                                className="absolute bottom-0 left-0 right-0 rounded-full"
-                                                style={{ backgroundColor: teal }}
-                                                layoutId="nav-underline"
-                                                animate={{
-                                                    opacity: isHovered ? 1 : 0.85,
-                                                    height: isHovered ? 3 : 2,
-                                                    boxShadow: isHovered ? `0 0 10px 1px hsla(172, 66%, 50%, 0.5)` : '0 0 0 transparent',
-                                                }}
-                                                transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                                            />
-                                        )}
+                                        <motion.div
+                                            className="absolute bottom-0 left-0 right-0 rounded-full"
+                                            style={{ backgroundColor: teal }}
+                                            initial={false}
+                                            animate={{
+                                                opacity: showBar ? (isHovered ? 1 : 0.85) : 0,
+                                                height: isHovered ? 3 : 2,
+                                                boxShadow: isHovered ? `0 0 10px 1px hsla(172, 66%, 50%, 0.5)` : '0 0 0 transparent',
+                                            }}
+                                            transition={{ duration: 0.2 }}
+                                        />
                                     </motion.div>
                                 </Link>
                             );

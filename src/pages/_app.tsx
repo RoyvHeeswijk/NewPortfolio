@@ -9,11 +9,12 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800', '900'],
+  display: 'swap',
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
+    <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false} disableTransitionOnChange>
       <main className={`${inter.className} min-h-screen`} style={{ backgroundColor: 'hsl(220, 20%, 4%)' }}>
         <div className="relative">
           <Layout>

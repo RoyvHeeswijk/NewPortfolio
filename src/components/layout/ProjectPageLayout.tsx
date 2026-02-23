@@ -26,19 +26,19 @@ const borderColor = 'hsl(220, 14%, 16%)';
 const mutedText = 'hsl(215, 12%, 55%)';
 const lightText = 'hsl(210, 20%, 92%)';
 
-const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
+const fadeIn = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
 };
 
 const fadeInLeft = {
-    initial: { opacity: 0, x: -30 },
-    animate: { opacity: 1, x: 0 },
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
 };
 
 const fadeInRight = {
-    initial: { opacity: 0, x: 30 },
-    animate: { opacity: 1, x: 0 },
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
 };
 
 export default function ProjectPageLayout({
@@ -66,7 +66,7 @@ export default function ProjectPageLayout({
                 animate="animate"
                 variants={{ animate: { transition: { staggerChildren: 0.12 } } }}
             >
-                <motion.div variants={fadeInUp} transition={{ duration: 0.5 }} className="mb-8 md:mb-12">
+                <motion.div variants={fadeIn} transition={{ duration: 0.4 }} className="mb-8 md:mb-12">
                     <Link href="/#projects" legacyBehavior>
                         <motion.a
                             className="inline-flex items-center text-sm font-medium group cursor-pointer text-[#2dd4bf]"
@@ -79,7 +79,7 @@ export default function ProjectPageLayout({
                     </Link>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} transition={{ duration: 0.6 }} className="mb-8">
+                <motion.div variants={fadeIn} transition={{ duration: 0.4 }} className="mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">
                         {pageTitle}
                     </h2>
@@ -88,8 +88,8 @@ export default function ProjectPageLayout({
 
                 {projectVideoId && (
                     <motion.div
-                        variants={fadeInUp}
-                        transition={{ duration: 0.6 }}
+                        variants={fadeIn}
+                        transition={{ duration: 0.4 }}
                         className="my-8 md:my-12 rounded-2xl overflow-hidden aspect-video max-w-4xl"
                         style={{ border: `1px solid ${borderColor}` }}
                         whileHover={{ boxShadow: `0 0 40px -10px hsl(172, 66%, 50%, 0.2)` }}
@@ -131,12 +131,13 @@ export default function ProjectPageLayout({
                                 transition={{ duration: 0.6 }}
                                 whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
                             >
-                                <div className="flex justify-center items-center w-full">
+                                <div className="relative flex justify-center items-center w-full min-h-[56px]">
                                     <Image
                                         src={projectImage}
                                         alt={`Logo voor ${pageTitle}`}
                                         width={220}
                                         height={56}
+                                        sizes="220px"
                                         className="object-contain object-center w-auto max-w-full max-h-14 md:max-h-16"
                                         priority
                                     />
