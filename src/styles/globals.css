@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 162 20% 5%;
-    --foreground: 150 12% 95%;
-    --card: 162 18% 8%;
-    --card-foreground: 150 12% 95%;
-    --popover: 162 18% 8%;
-    --popover-foreground: 150 12% 95%;
+    --background: 164 28% 9%;
+    --foreground: 150 14% 96%;
+    --card: 164 24% 12%;
+    --card-foreground: 150 14% 96%;
+    --popover: 164 24% 12%;
+    --popover-foreground: 150 14% 96%;
     --primary: 158 72% 52%;
-    --primary-foreground: 162 25% 6%;
-    --secondary: 160 15% 10%;
-    --secondary-foreground: 150 12% 95%;
-    --muted: 160 13% 13%;
-    --muted-foreground: 155 10% 60%;
-    --accent: 172 65% 46%;
-    --accent-foreground: 162 25% 6%;
+    --primary-foreground: 164 32% 7%;
+    --secondary: 163 22% 13%;
+    --secondary-foreground: 150 14% 96%;
+    --muted: 162 18% 17%;
+    --muted-foreground: 155 12% 66%;
+    --accent: 172 65% 48%;
+    --accent-foreground: 164 32% 7%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 150 12% 95%;
-    --border: 158 12% 19%;
-    --input: 158 12% 19%;
+    --destructive-foreground: 150 14% 96%;
+    --border: 160 14% 24%;
+    --input: 160 14% 24%;
     --ring: 158 72% 52%;
     --radius: 0.25rem;
   }
@@ -114,6 +114,25 @@ html {
 
 .text-accent {
   color: hsl(var(--primary));
+}
+
+@keyframes portrait-scan {
+  0% {
+    transform: translateY(0%);
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.portrait-scan {
+  animation: portrait-scan 5s linear infinite;
 }
 
 .btn-primary {

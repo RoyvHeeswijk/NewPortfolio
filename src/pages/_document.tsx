@@ -9,7 +9,7 @@ export default function Document() {
         <link rel="shortcut icon" href="/favicon.svg" />
         <link rel="apple-touch-icon" href="/icons/portfolio-logo.svg" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#0A100D" />
+        <meta name="theme-color" content="#111D1A" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <body className="antialiased">

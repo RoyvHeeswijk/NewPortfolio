@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaLinkedin } from 'react-icons/fa';
 import {
@@ -12,6 +11,7 @@ import {
 import MaskedText from '../components/ui/MaskedText';
 import SectionLabel from '../components/ui/SectionLabel';
 import ProjectIndexRow from '../components/ui/ProjectIndexRow';
+import PortraitFrame from '../components/ui/PortraitFrame';
 import Reveal from '../components/ui/Reveal';
 
 // ── Data ──
@@ -90,6 +90,9 @@ function useTypewriter(words: string[], speed = 80, pause = 2000) {
 }
 
 const NAME_TARGET = "Roy v Heeswijk";
+// Character ranges of NAME_TARGET per rendered line: "Roy v" then "Heeswijk".
+const NAME_LINES: Array<[number, number]> = [[0, 5], [6, 14]];
+const ACCENT_CHAR_INDEX = 4;
 const RANDOM_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 
 function useScrambleName(speed = 70) {
@@ -159,18 +162,33 @@ export default function HomePage() {
               </p>
 
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-foreground mb-8">
-                {typedName.split(' ').map((word, i) => (
-                  <span key={i} className="block">
-                    {i === 1 ? <span className="text-primary">{word}</span> : word}
-                    {typedName.length < NAME_TARGET.length && i === typedName.split(' ').length - 1 && (
-                      <motion.span
-                        className="inline-block w-[3px] h-[0.85em] ml-1 bg-primary align-middle"
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-                      />
-                    )}
-                  </span>
-                ))}
+                {/* The name is split per character, so expose a readable version separately */}
+                <span className="sr-only">Roy van Heeswijk</span>
+                <span aria-hidden="true">
+                {NAME_LINES.map(([start, end], line) => {
+                  const isTyping = typedName.length < NAME_TARGET.length;
+                  const cursorOnThisLine = isTyping && (typedName.length <= start) === (line === 0);
+                  return (
+                    <span key={line} className="block min-h-[0.95em]">
+                      {typedName.slice(start, end).split('').map((char, i) => (
+                        <span
+                          key={i}
+                          className={start + i === ACCENT_CHAR_INDEX ? 'text-primary' : undefined}
+                        >
+                          {char === ' ' ? '\u00A0' : char}
+                        </span>
+                      ))}
+                      {cursorOnThisLine && (
+                        <motion.span
+                          className="inline-block w-[3px] h-[0.85em] ml-1 bg-primary align-middle"
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
+                        />
+                      )}
+                    </span>
+                  );
+                })}
+                </span>
               </h1>
 
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-prose mb-10">
@@ -188,16 +206,7 @@ export default function HomePage() {
             </div>
 
             <Reveal className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative w-56 sm:w-64 md:w-72 aspect-[3/4] border border-border overflow-hidden">
-                <Image
-                  src="/Profiel.png"
-                  alt="Roy van Heeswijk"
-                  fill
-                  sizes="(max-width: 768px) 14rem, 18rem"
-                  priority
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
+              <PortraitFrame src="/Profiel.png" alt="Roy van Heeswijk" />
             </Reveal>
           </div>
         </div>
