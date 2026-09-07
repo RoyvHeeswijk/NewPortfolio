@@ -30,6 +30,8 @@
     "components/navigation.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "NewPortfolio",
+    "components"
   ]
 }

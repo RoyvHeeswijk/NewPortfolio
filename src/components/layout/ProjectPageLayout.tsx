@@ -4,6 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaArrowLeft, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import MaskedText from '../ui/MaskedText';
+import Reveal from '../ui/Reveal';
+import Rule from '../ui/Rule';
 
 interface ProjectPageLayoutProps {
     metaTitle: string;
@@ -18,29 +21,6 @@ interface ProjectPageLayoutProps {
     children?: ReactNode;
 }
 
-const teal = 'hsl(172, 66%, 50%)';
-const teal10 = 'hsl(172, 66%, 50%, 0.1)';
-const teal20 = 'hsl(172, 66%, 50%, 0.2)';
-const cardBg = 'hsl(220, 18%, 7%)';
-const borderColor = 'hsl(220, 14%, 16%)';
-const mutedText = 'hsl(215, 12%, 55%)';
-const lightText = 'hsl(210, 20%, 92%)';
-
-const fadeIn = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-};
-
-const fadeInLeft = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-};
-
-const fadeInRight = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-};
-
 export default function ProjectPageLayout({
     metaTitle,
     metaDescription,
@@ -51,7 +31,7 @@ export default function ProjectPageLayout({
     technologies,
     githubUrl,
     liveUrl,
-    children
+    children,
 }: ProjectPageLayoutProps) {
     return (
         <>
@@ -60,156 +40,159 @@ export default function ProjectPageLayout({
                 <meta name="description" content={metaDescription} />
             </Head>
 
-            <motion.div
-                className="max-w-[1200px] mx-auto px-8 py-12 md:py-20 min-h-screen"
-                initial="initial"
-                animate="animate"
-                variants={{ animate: { transition: { staggerChildren: 0.12 } } }}
-            >
-                <motion.div variants={fadeIn} transition={{ duration: 0.4 }} className="mb-8 md:mb-12">
-                    <Link href="/#projects" legacyBehavior>
-                        <motion.a
-                            className="inline-flex items-center text-sm font-medium group cursor-pointer text-[#2dd4bf]"
-                            whileHover={{ x: -6 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <FaArrowLeft size={14} className="mr-2" />
-                            Terug naar projecten
-                        </motion.a>
-                    </Link>
-                </motion.div>
-
-                <motion.div variants={fadeIn} transition={{ duration: 0.4 }} className="mb-8">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">
-                        {pageTitle}
-                    </h2>
-                    <div className="w-16 h-1 rounded-full mt-4" style={{ background: `linear-gradient(90deg, ${teal}, hsl(200, 80%, 60%))` }} />
-                </motion.div>
-
-                {projectVideoId && (
-                    <motion.div
-                        variants={fadeIn}
-                        transition={{ duration: 0.4 }}
-                        className="my-8 md:my-12 rounded-2xl overflow-hidden aspect-video max-w-4xl"
-                        style={{ border: `1px solid ${borderColor}` }}
-                        whileHover={{ boxShadow: `0 0 40px -10px hsl(172, 66%, 50%, 0.2)` }}
+            <div className="max-w-[1200px] mx-auto px-8 pt-28 pb-20 min-h-screen">
+                {/* Back link */}
+                <Reveal>
+                    <Link
+                        href="/#projects"
+                        className="inline-flex items-center font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline mb-12 group"
                     >
-                        <iframe
-                            className="w-full h-full"
-                            src={`https://www.youtube.com/embed/${projectVideoId}`}
-                            title={`YouTube video player - ${pageTitle}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                    </motion.div>
+                        <motion.span
+                            className="mr-2 inline-block"
+                            whileHover={{ x: -4 }}
+                            transition={{ duration: 0.15 }}
+                        >
+                            <FaArrowLeft size={11} />
+                        </motion.span>
+                        Terug naar projecten
+                    </Link>
+                </Reveal>
+
+                {/* Hero */}
+                <Reveal>
+                    <p className="font-mono text-xs uppercase tracking-label text-primary mb-4">Project</p>
+                    <MaskedText
+                        text={pageTitle}
+                        as="h1"
+                        className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-6"
+                    />
+                    <Rule className="mb-8" />
+
+                    <div className="flex flex-wrap gap-2 mb-8">
+                        {technologies.map((tech, i) => (
+                            <motion.span
+                                key={tech}
+                                className="font-mono text-[10px] uppercase tracking-label text-muted-foreground border border-border px-2.5 py-1"
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 + i * 0.04, duration: 0.3 }}
+                            >
+                                {tech}
+                            </motion.span>
+                        ))}
+                    </div>
+
+                    {(githubUrl || liveUrl) && (
+                        <div className="flex flex-wrap gap-4 mb-12">
+                            {liveUrl && (
+                                <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                                    <FaExternalLinkAlt size={12} /> Bekijk Live Project
+                                </a>
+                            )}
+                            {githubUrl && (
+                                <a
+                                    href={githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline inline-flex items-center gap-2 px-6 py-3 border border-border"
+                                >
+                                    <FaGithub size={13} /> Bekijk op GitHub
+                                </a>
+                            )}
+                        </div>
+                    )}
+                </Reveal>
+
+                {/* Video */}
+                {projectVideoId && (
+                    <Reveal>
+                        <div className="mb-12 aspect-video max-w-4xl border border-border overflow-hidden">
+                            <iframe
+                                className="w-full h-full"
+                                src={`https://www.youtube.com/embed/${projectVideoId}`}
+                                title={`YouTube video player - ${pageTitle}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </div>
+                    </Reveal>
                 )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mt-6 md:mt-8">
-                    <motion.div
-                        className="lg:col-span-2 p-6 md:p-8 rounded-2xl"
-                        style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
-                        variants={fadeInLeft}
-                        transition={{ duration: 0.6 }}
-                        whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
-                    >
-                        <h2 className="text-2xl md:text-3xl font-semibold mb-4" style={{ color: lightText }}>
-                            Projectbeschrijving
-                        </h2>
-                        <div className="prose prose-invert prose-lg max-w-none leading-relaxed" style={{ color: mutedText }}>
+                {/* Content grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                    <Reveal className="lg:col-span-8">
+                        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-6">Projectbeschrijving</h2>
+                        <Rule className="mb-8" />
+                        <div className="prose-editorial max-w-prose">
                             {description}
                         </div>
                         {children && <div className="mt-8">{children}</div>}
-                    </motion.div>
+                    </Reveal>
 
-                    <div className="lg:col-span-1 flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
+                    <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start space-y-8">
                         {projectImage && !projectVideoId && (
-                            <motion.div
-                                className="p-6 md:p-8 rounded-2xl flex items-center justify-center min-h-[100px]"
-                                style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
-                                variants={fadeInRight}
-                                transition={{ duration: 0.6 }}
-                                whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
-                            >
-                                <div className="relative flex justify-center items-center w-full min-h-[56px]">
+                            <Reveal delay={0.1}>
+                                <div className="border border-border p-8 flex items-center justify-center">
                                     <Image
                                         src={projectImage}
                                         alt={`Logo voor ${pageTitle}`}
                                         width={220}
                                         height={56}
                                         sizes="220px"
-                                        className="object-contain object-center w-auto max-w-full max-h-14 md:max-h-16"
+                                        className="object-contain w-auto max-w-full max-h-16"
                                         priority
                                     />
                                 </div>
-                            </motion.div>
+                            </Reveal>
                         )}
-                        <motion.div
-                            className="p-6 md:p-8 rounded-2xl h-fit"
-                            style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}` }}
-                            variants={fadeInRight}
-                            transition={{ duration: 0.6 }}
-                            whileHover={{ borderColor: 'hsl(220, 14%, 22%)' }}
-                        >
-                        <h3 className="text-xl md:text-2xl font-semibold mb-5" style={{ color: lightText }}>Details</h3>
 
-                        <div className="mb-6">
-                            <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: teal }}>
-                                Skills
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                                {technologies.map((tech, i) => (
-                                    <motion.span
-                                        key={tech}
-                                        className="px-3 py-1 text-xs font-medium rounded-full"
-                                        style={{ backgroundColor: teal10, color: teal, border: `1px solid ${teal20}` }}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.5 + i * 0.05, duration: 0.3 }}
-                                        whileHover={{ scale: 1.1, boxShadow: `0 0 12px -4px hsl(172, 66%, 50%, 0.3)` }}
-                                    >
-                                        {tech}
-                                    </motion.span>
-                                ))}
-                            </div>
-                        </div>
+                        <Reveal delay={0.15}>
+                            <div>
+                                <h3 className="font-mono text-xs uppercase tracking-label text-primary mb-4">Details</h3>
+                                <Rule className="mb-6" />
 
-                        {(githubUrl || liveUrl) && (
-                            <div className="space-y-3 pt-5" style={{ borderTop: `1px solid ${borderColor}` }}>
-                                {liveUrl && (
-                                    <motion.a
-                                        href={liveUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center px-6 py-3 font-semibold rounded-lg w-full text-sm"
-                                        style={{ backgroundColor: teal, color: 'hsl(220, 20%, 4%)' }}
-                                        whileHover={{ scale: 1.03, boxShadow: `0 0 25px -5px hsl(172, 66%, 50%, 0.4)` }}
-                                        whileTap={{ scale: 0.97 }}
-                                        transition={{ duration: 0.15 }}
-                                    >
-                                        <FaExternalLinkAlt className="mr-2" /> Bekijk Live Project
-                                    </motion.a>
-                                )}
-                                {githubUrl && (
-                                    <motion.a
-                                        href={githubUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center px-6 py-3 font-semibold rounded-lg w-full text-sm"
-                                        style={{ backgroundColor: cardBg, border: `1px solid ${borderColor}`, color: mutedText }}
-                                        whileHover={{ scale: 1.03, borderColor: teal, color: lightText }}
-                                        whileTap={{ scale: 0.97 }}
-                                        transition={{ duration: 0.15 }}
-                                    >
-                                        <FaGithub className="mr-2" /> Bekijk op GitHub
-                                    </motion.a>
+                                <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-3">Skills</p>
+                                <div className="flex flex-wrap gap-2 mb-8">
+                                    {technologies.map((tech) => (
+                                        <span
+                                            key={tech}
+                                            className="font-mono text-[10px] uppercase tracking-label text-muted-foreground border border-border px-2 py-1"
+                                        >
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {(githubUrl || liveUrl) && (
+                                    <div className="space-y-3 pt-6 border-t border-border">
+                                        {liveUrl && (
+                                            <a
+                                                href={liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="btn-primary w-full justify-center"
+                                            >
+                                                <FaExternalLinkAlt size={12} /> Bekijk Live Project
+                                            </a>
+                                        )}
+                                        {githubUrl && (
+                                            <a
+                                                href={githubUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline flex items-center justify-center gap-2 w-full py-3 border border-border"
+                                            >
+                                                <FaGithub size={13} /> Bekijk op GitHub
+                                            </a>
+                                        )}
+                                    </div>
                                 )}
                             </div>
-                        )}
-                        </motion.div>
+                        </Reveal>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </>
     );
 }

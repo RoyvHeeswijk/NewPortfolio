@@ -1,47 +1,6 @@
 "use client"
 
-import { Github, Globe } from "lucide-react"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { StarryBackground } from "../../components/StarryBackground"
-import Link from "next/link"
-import { motion } from "framer-motion"
 import ProjectPageLayout from '../components/layout/ProjectPageLayout';
-import Navbar from '../components/layout/Navbar';
-
-const classicFont = "font-American-Captain"
-interface NavItemProps {
-    text: string
-    href: string
-}
-
-const projects = [
-    {
-        id: 1,
-        title: "Sphere & Dice",
-        description: "This is a project where I use THREE.js to make a sphere & dice rotate.",
-        image: "Threejs.png",
-        tags: ["JavaScript", "THREE.js", "CSS", "VS Code"],
-        href: "/Threejs",
-    },
-    {
-        id: 2,
-        title: "Charla",
-        description: "This is a project where I use Next.js to create a speech-to-text app.",
-        image: "Charla.png",
-        tags: ["Tailwind CSS", "JavaScript", "OpenAI", "Github", "Next.js", "Cursor"],
-        href: "/Charla",
-    },
-    {
-        id: 3,
-        title: "Upendo",
-        description: "This is a project where I use Tailwind CSS & JavaScript to create a website for the company Upendo.",
-        image: "Upendo.png",
-        tags: ["Javascript", "Tailwind CSS", "Next.js", "Github"],
-        href: "/Upendo",
-    },
-]
 
 const CineMatchPageProject = () => {
     const pageTitle = "CineMatch: Jouw Perfecte Film Vinden met AI";
@@ -50,7 +9,6 @@ const CineMatchPageProject = () => {
     const technologies = ["Next.js", "React", "Tailwind CSS", "JavaScript", "OpenAI API", "Vercel"];
 
     const githubUrl = "https://github.com/RoyvHeeswijk/CineMatch";
-    // const liveUrl = "HIER_DE_LIVE_URL_INDIEN_BESCHIKBAAR"; // Toevoegen als je deze hebt
 
     const description = (
         <>
@@ -88,7 +46,6 @@ const CineMatchPageProject = () => {
             description={description}
             technologies={technologies}
             githubUrl={githubUrl}
-        // liveUrl={liveUrl} // Uncomment en vul in als beschikbaar
         />
     );
 };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 
@@ -11,16 +11,12 @@ const navItems = [
     { name: 'Contact', path: '/#contact', hash: 'contact' },
 ];
 
-const teal = 'hsl(172, 66%, 50%)';
-const muted = 'hsl(215, 12%, 55%)';
-const borderColor = 'hsl(220, 14%, 16%)';
-
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
     const [currentHash, setCurrentHash] = useState('');
-    const pathname = usePathname();
+    const router = useRouter();
+    const pathname = router.pathname;
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -69,117 +65,87 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [pathname]);
 
+    const isItemActive = (item: typeof navItems[0]) =>
+        pathname === '/'
+            ? (item.hash ? currentHash === item.hash : !currentHash)
+            : item.path === '/';
+
     return (
-        <nav
-            className={`fixed w-full z-50 transition-all duration-500 ${
-                scrolled ? 'backdrop-blur-xl py-3.5' : 'bg-transparent py-5'
-            }`}
-            style={scrolled ? { backgroundColor: 'hsl(220, 20%, 4%, 0.85)', borderBottom: `1px solid ${borderColor}` } : {}}
-        >
-            <div className="max-w-[1200px] mx-auto px-8">
-                <div className="flex items-center justify-between">
-                    <Link href="/">
-                        <motion.span
-                            className="text-xl font-bold"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                            whileHover={{ scale: 1.03 }}
-                        >
-                            Roy <span className="text-gradient">v Heeswijk</span>
-                        </motion.span>
-                    </Link>
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'}`}>
+            <nav className="max-w-[1200px] mx-auto px-8 py-5 flex items-center justify-between">
+                <Link href="/" className="font-display text-lg text-foreground hover:text-primary transition-colors">
+                    Roy <span className="text-primary">v Heeswijk</span>
+                </Link>
 
-                    <div className="hidden md:flex items-center gap-10">
-                        {navItems.map((item, index) => {
-                            const isActive = pathname === '/'
-                                ? (item.hash ? currentHash === item.hash : !currentHash)
-                                : (item.path === '/');
-                            const isHovered = hoveredIdx === index;
-                            const showBar = isHovered || isActive;
-                            return (
-                                <Link key={item.path} href={item.path}>
-                                    <motion.div
-                                        className="relative text-sm font-medium py-2.5 px-1"
-                                        style={{ color: isActive ? teal : muted }}
-                                        onMouseEnter={() => setHoveredIdx(index)}
-                                        onMouseLeave={() => setHoveredIdx(null)}
-                                        animate={{ color: isHovered ? teal : isActive ? teal : muted }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        {item.name}
-                                        <motion.div
-                                            className="absolute bottom-0 left-0 right-0 rounded-full"
-                                            style={{ backgroundColor: teal }}
-                                            initial={false}
-                                            animate={{
-                                                opacity: showBar ? (isHovered ? 1 : 0.85) : 0,
-                                                height: isHovered ? 3 : 2,
-                                                boxShadow: isHovered ? `0 0 10px 1px hsla(172, 66%, 50%, 0.5)` : '0 0 0 transparent',
-                                            }}
-                                            transition={{ duration: 0.2 }}
-                                        />
-                                    </motion.div>
-                                </Link>
-                            );
-                        })}
-                    </div>
-
-                    <motion.button
-                        className="md:hidden"
-                        style={{ color: muted }}
-                        onClick={() => setIsOpen(!isOpen)}
-                        aria-label="Menu"
-                        whileTap={{ scale: 0.9, rotate: 90 }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-                    </motion.button>
+                <div className="hidden md:flex items-center gap-8">
+                    {navItems.map((item) => {
+                        const isActive = isItemActive(item);
+                        return (
+                            <Link
+                                key={item.path}
+                                href={item.path}
+                                className={`font-mono text-xs uppercase tracking-label link-underline transition-colors duration-200 inline-flex items-center gap-2 ${
+                                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                            >
+                                {/* Always rendered so the label never shifts when the active item changes */}
+                                <span
+                                    aria-hidden="true"
+                                    className={`w-1.5 h-1.5 rounded-full bg-primary shrink-0 transition-opacity duration-200 ${
+                                        isActive ? 'opacity-100' : 'opacity-0'
+                                    }`}
+                                />
+                                {item.name}
+                            </Link>
+                        );
+                    })}
                 </div>
 
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            className="md:hidden overflow-hidden"
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div
-                                className="pt-4 pb-3 mt-4 space-y-1 rounded-xl px-3 backdrop-blur-xl"
-                                style={{ backgroundColor: 'hsl(220, 18%, 7%, 0.95)', border: `1px solid ${borderColor}` }}
-                            >
-                                {navItems.map((item, i) => {
-                                    const isActive = pathname === '/'
-                                        ? (item.hash ? currentHash === item.hash : !currentHash)
-                                        : (item.path === '/');
-                                    return (
-                                        <motion.div
-                                            key={item.path}
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: i * 0.05, duration: 0.2 }}
-                                        >
-                                            <Link
-                                                href={item.path}
-                                                className="block py-3 px-3 text-sm font-medium rounded-lg transition-all duration-300"
-                                                style={{
-                                                    color: isActive ? teal : muted,
-                                                    backgroundColor: isActive ? 'hsl(172, 66%, 50%, 0.08)' : 'transparent',
-                                                }}
-                                                onClick={() => setIsOpen(false)}
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-        </nav>
+                <button
+                    className="md:hidden text-muted-foreground hover:text-foreground p-1"
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label="Menu"
+                >
+                    {isOpen ? <HiX size={20} /> : <HiMenu size={20} />}
+                </button>
+            </nav>
+
+            <AnimatePresence initial={false}>
+                {isOpen && (
+                    <motion.div
+                        key="mobile-menu"
+                        className="md:hidden overflow-hidden border-t border-border bg-background"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25 }}
+                    >
+                        <div className="px-8 py-4 space-y-1">
+                            {navItems.map((item) => {
+                                const isActive = isItemActive(item);
+                                return (
+                                    <Link
+                                        key={item.path}
+                                        href={item.path}
+                                        className={`flex items-center gap-2 py-3 font-mono text-xs uppercase tracking-label transition-colors ${
+                                            isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                                        }`}
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            className={`w-1.5 h-1.5 rounded-full bg-primary shrink-0 transition-opacity duration-200 ${
+                                                isActive ? 'opacity-100' : 'opacity-0'
+                                            }`}
+                                        />
+                                        {item.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </header>
     );
 }

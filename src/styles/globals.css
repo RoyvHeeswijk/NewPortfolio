@@ -4,25 +4,26 @@
 
 @layer base {
   :root {
-    --background: 220 20% 4%;
-    --foreground: 210 20% 92%;
-    --card: 220 18% 7%;
-    --card-foreground: 210 20% 92%;
-    --popover: 220 18% 7%;
-    --popover-foreground: 210 20% 92%;
-    --primary: 172 66% 50%;
-    --primary-foreground: 220 20% 4%;
-    --secondary: 220 16% 12%;
-    --secondary-foreground: 210 20% 92%;
-    --muted: 220 14% 14%;
-    --muted-foreground: 215 12% 55%;
-    --accent: 220 16% 12%;
-    --accent-foreground: 210 20% 92%;
+    --background: 162 20% 5%;
+    --foreground: 150 12% 95%;
+    --card: 162 18% 8%;
+    --card-foreground: 150 12% 95%;
+    --popover: 162 18% 8%;
+    --popover-foreground: 150 12% 95%;
+    --primary: 158 72% 52%;
+    --primary-foreground: 162 25% 6%;
+    --secondary: 160 15% 10%;
+    --secondary-foreground: 150 12% 95%;
+    --muted: 160 13% 13%;
+    --muted-foreground: 155 10% 60%;
+    --accent: 172 65% 46%;
+    --accent-foreground: 162 25% 6%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 92%;
-    --border: 220 14% 16%;
-    --input: 220 14% 16%;
-    --ring: 172 66% 50%;
+    --destructive-foreground: 150 12% 95%;
+    --border: 158 12% 19%;
+    --input: 158 12% 19%;
+    --ring: 158 72% 52%;
+    --radius: 0.25rem;
   }
 }
 
@@ -32,8 +33,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
   }
 }
 
@@ -42,81 +47,124 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(220 20% 4%);
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(220 14% 16%);
-  border-radius: 4px;
+  background: hsl(var(--border));
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(172 66% 50% / 0.3);
+  background: hsl(var(--primary) / 0.4);
 }
 
 ::selection {
-  background-color: hsl(172 66% 50% / 0.25);
-  color: white;
+  background-color: hsl(var(--primary) / 0.25);
+  color: hsl(var(--foreground));
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, hsl(172, 66%, 50%), hsl(200, 80%, 60%));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ── Editorial Noir utilities ── */
+
+.hairline {
+  height: 1px;
+  background: hsl(var(--border));
 }
 
-.glow-teal {
-  box-shadow: 0 0 40px -10px hsl(172 66% 50% / 0.3);
+.hairline-v {
+  width: 1px;
+  background: hsl(var(--border));
 }
 
-.glow-teal-strong {
-  box-shadow: 0 0 60px -10px hsl(172 66% 50% / 0.45);
+.paper {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
+/* Placed in the components layer so utilities like inline-flex can still
+   override the default display without a specificity fight. */
+@layer components {
+  .link-underline {
+    position: relative;
+    display: inline-block;
   }
-  50% {
-    transform: translateY(-8px);
-  }
-}
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
 
-@keyframes bounce-slow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-}
-
-.animate-bounce-slow {
-  animation: bounce-slow 2s ease-in-out infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+  .link-underline:hover::after {
+    transform: scaleX(1);
   }
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
+.text-accent {
+  color: hsl(var(--primary));
+}
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-6 py-3 text-sm font-mono uppercase tracking-label;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+}
+
+.prose-editorial {
+  @apply text-muted-foreground leading-relaxed;
+}
+
+.prose-editorial p {
+  @apply mb-6;
+}
+
+.prose-editorial ul {
+  @apply list-none mb-6 space-y-3 pl-0;
+}
+
+.prose-editorial li {
+  @apply relative pl-5 text-sm;
+}
+
+.prose-editorial li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: hsl(var(--primary));
+}
+
+.prose-editorial strong {
+  @apply text-foreground font-medium;
+}
+
+.prose-editorial h3 {
+  @apply text-foreground text-xl font-display mb-3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
