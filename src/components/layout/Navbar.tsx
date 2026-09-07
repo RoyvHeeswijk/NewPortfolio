@@ -73,8 +73,8 @@ export default function Navbar() {
     return (
         <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'}`}>
             <nav className="max-w-[1200px] mx-auto px-8 py-5 flex items-center justify-between">
-                <Link href="/" className="font-display text-lg text-foreground hover:text-primary transition-colors">
-                    Roy <span className="text-primary">v Heeswijk</span>
+                <Link href="/" className="font-display text-lg text-foreground hover:text-primary transition-colors notranslate" translate="no">
+                    Roy <span className="text-primary">v</span> Heeswijk
                 </Link>
 
                 <div className="hidden md:flex items-center gap-8">

@@ -89,42 +89,12 @@ function useTypewriter(words: string[], speed = 80, pause = 2000) {
   return text;
 }
 
-const NAME_TARGET = "Roy v Heeswijk";
-// Character ranges of NAME_TARGET per rendered line: "Roy v" then "Heeswijk".
-const NAME_LINES: Array<[number, number]> = [[0, 5], [6, 14]];
-const ACCENT_CHAR_INDEX = 4;
-const RANDOM_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-
-function useScrambleName(speed = 70) {
-  const [mounted, setMounted] = useState(false);
-  const [revealedLength, setRevealedLength] = useState(0);
-  const [randomChar, setRandomChar] = useState('R');
-
-  useEffect(() => setMounted(true), []);
-  useEffect(() => {
-    if (!mounted || revealedLength >= NAME_TARGET.length) return;
-    const interval = setInterval(() => setRandomChar(RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)]), 40);
-    return () => clearInterval(interval);
-  }, [mounted, revealedLength]);
-  useEffect(() => {
-    if (!mounted || revealedLength >= NAME_TARGET.length) return;
-    const timeout = setTimeout(() => setRevealedLength((p) => p + 1), speed);
-    return () => clearTimeout(timeout);
-  }, [mounted, revealedLength, speed]);
-
-  if (!mounted) return NAME_TARGET;
-  return revealedLength < NAME_TARGET.length
-    ? NAME_TARGET.slice(0, revealedLength) + randomChar
-    : NAME_TARGET;
-}
-
 // ── Page ──
 
 export default function HomePage() {
   const router = useRouter();
   const pathname = router.pathname;
   const typedRole = useTypewriter(roles, 90, 2800);
-  const typedName = useScrambleName(90);
 
   useEffect(() => {
     if (pathname !== '/') return;
@@ -161,34 +131,9 @@ export default function HomePage() {
                 />
               </p>
 
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-foreground mb-8">
-                {/* The name is split per character, so expose a readable version separately */}
-                <span className="sr-only">Roy van Heeswijk</span>
-                <span aria-hidden="true">
-                {NAME_LINES.map(([start, end], line) => {
-                  const isTyping = typedName.length < NAME_TARGET.length;
-                  const cursorOnThisLine = isTyping && (typedName.length <= start) === (line === 0);
-                  return (
-                    <span key={line} className="block min-h-[0.95em]">
-                      {typedName.slice(start, end).split('').map((char, i) => (
-                        <span
-                          key={i}
-                          className={start + i === ACCENT_CHAR_INDEX ? 'text-primary' : undefined}
-                        >
-                          {char === ' ' ? '\u00A0' : char}
-                        </span>
-                      ))}
-                      {cursorOnThisLine && (
-                        <motion.span
-                          className="inline-block w-[3px] h-[0.85em] ml-1 bg-primary align-middle"
-                          animate={{ opacity: [1, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
-                        />
-                      )}
-                    </span>
-                  );
-                })}
-                </span>
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] text-foreground mb-8 notranslate" translate="no">
+                <span className="block">Roy <span className="text-primary">v</span></span>
+                <span className="block">Heeswijk</span>
               </h1>
 
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-prose mb-10">
