@@ -53,8 +53,9 @@ const skillsData = [
 const roles = ["Front End Developer", "UI Designer"];
 
 const aboutFacts = [
-  { label: "Leeftijd", value: "20 jaar" },
+  { label: "Leeftijd", value: "21 jaar" },
   { label: "Opleiding", value: "ICT & Human Centered Design — Fontys Tilburg" },
+  { label: "Minor", value: "Psychologie & Technologie" },
   { label: "Herkomst", value: "Drunen" },
 ];
 
@@ -221,9 +222,11 @@ export default function HomePage() {
             <Reveal className="lg:col-span-7">
               <div className="space-y-6 text-base leading-relaxed text-muted-foreground max-w-prose">
                 <p>
-                  Als 20-jarige student ICT & Human Centered Design aan Fontys in Tilburg, breng ik mijn passie voor
-                  technologie en creativiteit samen in elk project. Geboren in Drunen, heb ik mezelf
-                  ontwikkeld tot een gedreven front-end developer die graag nieuwe uitdagingen aangaat.
+                  Als 21-jarige student ICT & Human Centered Design aan Fontys in Tilburg volg ik op dit moment
+                  de minor Psychologie & Technologie. Daarin wil ik meer leren over gebruikers en hun handelingen,
+                  zodat ik producten en ontwerpen gericht kan verbeteren. Geboren in Drunen, breng ik mijn passie voor
+                  technologie en creativiteit samen in elk project en heb ik mezelf ontwikkeld tot een gedreven
+                  front-end developer die graag nieuwe uitdagingen aangaat.
                 </p>
                 <p>
                   Mijn doel is om mezelf constant uit te dagen en te blijven leren. In mijn portfolio zie je
