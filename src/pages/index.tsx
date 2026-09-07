@@ -31,7 +31,6 @@ interface Project {
 const projectsData: Project[] = [
   { id: 1, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
   { id: 2, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
-  { id: 3, title: "Charla — Spraak-naar-Tekst", description: "Real-time spraak-naar-tekst applicatie, mogelijk gemaakt door Next.js en OpenAI API.", image: "/Charla.png", tags: ["Next.js", "React", "TypeScript", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk", live: "/Charla", liveDemo: "https://persoonlijkproject-saj9.vercel.app/" },
   { id: 4, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk/CineMatch", live: "/CineMatchpage" },
 ];
 
@@ -151,8 +150,8 @@ export default function HomePage() {
       {/* ── HERO ── */}
       <section className="min-h-screen flex items-center pt-28 pb-20">
         <div className="max-w-[1200px] mx-auto px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-end">
-            <div className="lg:col-span-7">
+          <div className="flex items-end gap-6 md:gap-8 lg:gap-12 xl:gap-16">
+            <div className="flex-1 min-w-0">
               <p className="font-mono text-xs uppercase tracking-label text-primary mb-8">
                 Portfolio — {typedRole}
                 <motion.span
@@ -206,7 +205,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <Reveal className="lg:col-span-5 flex justify-center lg:justify-end">
+            <Reveal className="hidden min-[720px]:flex shrink-0 justify-end">
               <PortraitFrame src="/Profiel.png" alt="Roy van Heeswijk" />
             </Reveal>
           </div>

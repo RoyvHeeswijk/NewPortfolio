@@ -56,7 +56,7 @@ export default function PortraitFrame({ src, alt, className = '' }: PortraitFram
     <div className={className} style={{ perspective: 900 }}>
       <motion.div
         ref={frameRef}
-        className="relative isolate w-56 sm:w-64 md:w-72 aspect-[3/4] border border-border overflow-hidden transition-shadow duration-500"
+        className="relative isolate w-44 lg:w-56 xl:w-64 2xl:w-72 aspect-[3/4] border border-border overflow-hidden transition-shadow duration-500"
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         animate={{
           boxShadow: hovered
