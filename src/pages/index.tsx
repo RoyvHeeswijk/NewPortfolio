@@ -7,12 +7,22 @@ import { FaLinkedin } from 'react-icons/fa';
 import {
   SiJavascript, SiReact, SiNextdotjs, SiVuedotjs, SiNodedotjs, SiThreedotjs,
   SiTypescript, SiShopify, SiPython, SiTailwindcss, SiGithub, SiFigma,
+  SiSupabase, SiVite, SiOpenai, SiHtml5,
 } from 'react-icons/si';
 import MaskedText from '../components/ui/MaskedText';
 import SectionLabel from '../components/ui/SectionLabel';
 import ProjectIndexRow from '../components/ui/ProjectIndexRow';
 import PortraitFrame from '../components/ui/PortraitFrame';
 import Reveal from '../components/ui/Reveal';
+
+function CursorIcon({ size = 16, className, style }: { size?: number; className?: string; style?: React.CSSProperties }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} style={style} aria-hidden>
+      <path d="M12 2L3 7v10l9 5 9-5V7l-9-5Z" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 2v20M3 7l18 10M21 7L3 17" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
 
 // ── Data ──
 
@@ -43,9 +53,14 @@ const skillsData = [
   { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
   { name: "Three.js", icon: SiThreedotjs, color: "#FFFFFF" },
   { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { name: "HTML & CSS", icon: SiHtml5, color: "#E34F26" },
+  { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "Vite", icon: SiVite, color: "#646CFF" },
+  { name: "Supabase", icon: SiSupabase, color: "#3FCF8E" },
+  { name: "OpenAI", icon: SiOpenai, color: "#FFFFFF" },
+  { name: "Cursor", icon: CursorIcon, color: "#FFFFFF" },
   { name: "Liquid", icon: SiShopify, color: "#7AB55C" },
   { name: "Python", icon: SiPython, color: "#3776AB" },
-  { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
   { name: "GitHub", icon: SiGithub, color: "#FFFFFF" },
   { name: "Figma", icon: SiFigma, color: "#F24E1E" },
 ];
