@@ -13,6 +13,7 @@ interface ProjectPageLayoutProps {
     metaDescription: string;
     pageTitle: string;
     projectImage?: string;
+    projectPreviewImage?: string;
     projectVideoId?: string;
     description: ReactNode;
     technologies: string[];
@@ -26,6 +27,7 @@ export default function ProjectPageLayout({
     metaDescription,
     pageTitle,
     projectImage,
+    projectPreviewImage,
     projectVideoId,
     description,
     technologies,
@@ -131,7 +133,23 @@ export default function ProjectPageLayout({
                     </Reveal>
 
                     <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start space-y-8">
-                        {projectImage && !projectVideoId && (
+                        {projectPreviewImage && !projectVideoId && (
+                            <Reveal delay={0.1}>
+                                <div className="border border-border overflow-hidden bg-background">
+                                    <Image
+                                        src={projectPreviewImage}
+                                        alt={`Preview van ${pageTitle}`}
+                                        width={390}
+                                        height={844}
+                                        sizes="(max-width: 1024px) 100vw, 320px"
+                                        className="object-cover object-top w-full aspect-[390/844]"
+                                        priority
+                                    />
+                                </div>
+                            </Reveal>
+                        )}
+
+                        {projectImage && !projectVideoId && !projectPreviewImage && (
                             <Reveal delay={0.1}>
                                 <div className="border border-border p-8 flex items-center justify-center">
                                     <Image

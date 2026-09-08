@@ -31,6 +31,7 @@ interface Project {
 const projectsData: Project[] = [
   { id: 1, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
   { id: 2, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
+  { id: 3, title: "GymTrack", description: "AI-gedreven workout planner en tracker met 3D-spier-heatmap, schema-architect en progressie-analyse.", image: "/GymTrack.png", tags: ["React", "TypeScript", "Tailwind CSS", "Supabase", "Vite"], github: "https://github.com/RoyvHeeswijk/GymTrack", live: "/GymTrack", liveDemo: "https://gym-track-bice.vercel.app/" },
   { id: 4, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk/CineMatch", live: "/CineMatchpage" },
 ];
 
