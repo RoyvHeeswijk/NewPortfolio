@@ -6,6 +6,10 @@ const socialLinks = [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/roy-van-heeswijk-34919135b/', icon: FaLinkedin, external: true },
 ];
 
+const footerLinks = [
+    { label: 'Privacy', href: '/privacy', external: false },
+];
+
 export default function Footer() {
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -28,6 +32,16 @@ export default function Footer() {
                                 className="font-mono text-[11px] uppercase tracking-label text-muted-foreground hover:text-primary transition-colors duration-200 link-underline inline-flex items-center gap-2"
                             >
                                 <Icon size={12} />
+                                {label}
+                            </a>
+                        ))}
+                        {footerLinks.map(({ label, href, external }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                className="font-mono text-[11px] uppercase tracking-label text-muted-foreground hover:text-primary transition-colors duration-200 link-underline"
+                            >
                                 {label}
                             </a>
                         ))}
