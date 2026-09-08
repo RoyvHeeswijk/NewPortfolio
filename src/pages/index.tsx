@@ -151,7 +151,7 @@ export default function HomePage() {
             </div>
 
             <Reveal className="hidden min-[720px]:flex shrink-0 justify-end">
-              <PortraitFrame src="/Profiel.png" alt="Roy van Heeswijk" />
+              <PortraitFrame src="/Profiel.jpg" alt="Roy van Heeswijk" />
             </Reveal>
           </div>
         </div>
