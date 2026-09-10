@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import SignalMarker from '../home/SignalMarker';
 
 interface ProjectContentSectionProps {
   number: string;
@@ -8,13 +9,11 @@ interface ProjectContentSectionProps {
 
 export default function ProjectContentSection({ number, title, children }: ProjectContentSectionProps) {
   return (
-    <section className="mb-7 pb-7 border-b border-border last:mb-0 last:pb-0 last:border-b-0">
-      <h2 className="font-mono text-xs uppercase tracking-label text-primary mb-3">
-        {number} / {title}
+    <section className="border-t-2 border-border pt-7 pb-2 mb-8 last:mb-0">
+      <h2 className="signal-label text-primary mb-5 flex items-center gap-2">
+        <SignalMarker /> {number} / {title}
       </h2>
-      <div className="text-sm text-foreground leading-relaxed space-y-3 [&_p]:text-foreground/90 [&_ul]:list-none [&_ul]:pl-0 [&_ul]:space-y-2 [&_ul]:mt-2 [&_li]:relative [&_li]:pl-4 [&_li]:text-foreground/90 [&_li]:before:content-['·'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:text-primary">
-        {children}
-      </div>
+      <div className="project-prose space-y-4">{children}</div>
     </section>
   );
 }

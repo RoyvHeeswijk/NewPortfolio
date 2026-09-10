@@ -1,10 +1,11 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+import '@/styles/globals.css';
+import '@/styles/signal.css';
+import type { AppProps } from 'next/app';
+import { Inter, JetBrains_Mono, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import Layout from '../components/layout/Layout';
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { analyticsBeforeSend } from '@/lib/analytics-opt-out';
 
 const inter = Inter({
@@ -14,11 +15,11 @@ const inter = Inter({
   variable: '--font-sans',
 });
 
-const instrumentSerif = Instrument_Serif({
+const outfit = Outfit({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-display',
+  variable: '--font-outfit',
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -31,7 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false} disableTransitionOnChange>
-      <main className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} min-h-screen bg-background`}>
+      <main className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable} min-h-screen bg-background`}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

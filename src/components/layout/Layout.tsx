@@ -1,23 +1,45 @@
+'use client';
+
 import { ReactNode } from 'react';
+import { useRouter } from 'next/router';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import TextureLayer from '../ui/TextureLayer';
-import ScrollProgress from '../ui/ScrollProgress';
-import CustomCursor from '../ui/CustomCursor';
+import SignalNavbar from './SignalNavbar';
+import SignalFooter from './SignalFooter';
 
 interface LayoutProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
+const SIGNAL_ROUTES = new Set([
+  '/',
+  '/Forge',
+  '/UIFoundry',
+  '/SalesFlow',
+  '/GymTrack',
+  '/Threejs',
+  '/Upendo',
+]);
+
 export default function Layout({ children }: LayoutProps) {
+  const router = useRouter();
+  const useSignalShell = SIGNAL_ROUTES.has(router.pathname);
+
+  if (useSignalShell) {
     return (
-        <div className="flex flex-col min-h-screen relative">
-            <TextureLayer />
-            <ScrollProgress />
-            <CustomCursor />
-            <Navbar />
-            <div className="flex-grow">{children}</div>
-            <Footer />
-        </div>
+      <div className="signal-theme flex flex-col min-h-screen overflow-visible">
+        <SignalNavbar />
+        <div className="flex-grow overflow-visible">{children}</div>
+        <SignalFooter />
+      </div>
     );
+  }
+
+  return (
+    <div className="signal-theme flex flex-col min-h-screen relative">
+      <Navbar />
+      <div className="flex-grow">{children}</div>
+      <Footer />
+    </div>
+  );
 }
