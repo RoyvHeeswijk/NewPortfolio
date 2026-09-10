@@ -1,18 +1,14 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useRouter } from "next/router"
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function CinematRedirect() {
-    const router = useRouter()
+export default function CinematchRedirect() {
+  const router = useRouter();
 
-    useEffect(() => {
-        router.push("/CineMatchpage")
-    }, [router])
+  useEffect(() => {
+    router.replace("/");
+  }, [router]);
 
-    return (
-        <div className="min-h-screen flex items-center justify-center text-gray-400">
-            Doorverwijzen...
-        </div>
-    )
+  return null;
 }
