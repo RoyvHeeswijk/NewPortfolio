@@ -7,7 +7,7 @@ import { FaLinkedin } from 'react-icons/fa';
 import {
   SiJavascript, SiReact, SiNextdotjs, SiVuedotjs, SiNodedotjs, SiThreedotjs,
   SiTypescript, SiShopify, SiPython, SiTailwindcss, SiGithub, SiFigma,
-  SiSupabase, SiVite, SiOpenai, SiHtml5,
+  SiSupabase, SiVite, SiOpenai, SiHtml5, SiShadcnui, SiLucide,
 } from 'react-icons/si';
 import MaskedText from '../components/ui/MaskedText';
 import SectionLabel from '../components/ui/SectionLabel';
@@ -39,10 +39,11 @@ interface Project {
 }
 
 const projectsData: Project[] = [
-  { id: 1, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
-  { id: 2, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
-  { id: 3, title: "GymTrack", description: "AI-gedreven workout planner en tracker met 3D-spier-heatmap, schema-architect en progressie-analyse.", image: "/GymTrack.png", tags: ["React", "TypeScript", "Tailwind CSS", "Supabase", "Vite"], github: "https://github.com/RoyvHeeswijk/GymTrack", live: "/GymTrack", liveDemo: "https://gym-track-bice.vercel.app/" },
-  { id: 4, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk/CineMatch", live: "/CineMatchpage" },
+  { id: 1, title: "UI Foundry", description: "Interactieve design-system en frontend playground om componenten, tokens, patterns en accessibility centraal te beheren en testen.", image: "/UIFoundry.png", tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui"], live: "/UIFoundry", liveDemo: "https://temporary-quick-delta-5hc7rpj.vercel.app/" },
+  { id: 2, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
+  { id: 3, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
+  { id: 4, title: "GymTrack", description: "AI-gedreven workout planner en tracker met 3D-spier-heatmap, schema-architect en progressie-analyse.", image: "/GymTrack.png", tags: ["React", "TypeScript", "Tailwind CSS", "Supabase", "Vite"], github: "https://github.com/RoyvHeeswijk/GymTrack", live: "/GymTrack", liveDemo: "https://gym-track-bice.vercel.app/" },
+  { id: 5, title: "CineMatch AI", description: "AI-gedreven film aanbevelingsplatform met gepersonaliseerde suggesties.", image: "/video.png", tags: ["Next.js", "React", "AI", "OpenAI API", "Tailwind CSS"], github: "https://github.com/RoyvHeeswijk/CineMatch", live: "/CineMatchpage" },
 ];
 
 const skillsData = [
@@ -55,6 +56,8 @@ const skillsData = [
   { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { name: "HTML & CSS", icon: SiHtml5, color: "#E34F26" },
   { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "shadcn/ui", icon: SiShadcnui, color: "#FFFFFF" },
+  { name: "Lucide", icon: SiLucide, color: "#F56565" },
   { name: "Vite", icon: SiVite, color: "#646CFF" },
   { name: "Supabase", icon: SiSupabase, color: "#3FCF8E" },
   { name: "OpenAI", icon: SiOpenai, color: "#FFFFFF" },
