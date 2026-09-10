@@ -36,8 +36,24 @@ export const profileStatement = [
 
 export const profileBody = [
   'Als 21-jarige student ICT & Human Centered Design aan Fontys Tilburg volg ik de minor Psychologie & Technologie. Daarin leer ik hoe gebruikers denken en handelen, zodat ik betere ontwerpkeuzes kan maken. Ik combineer UX/UI met frontend development en werk graag aan producten die echt gebruikt worden.',
-  'In mijn projecten laat ik zien hoe ik nadenk over gebruikers, interfaces en techniek. Niet alleen het eindresultaat, maar ook mijn aanpak, keuzes en wat ik ervan leer. Ik zoek een stage of bijbaan waar ik kan groeien als UX/UI designer en front-end developer.',
+  'In mijn projecten laat ik zien hoe ik nadenk over gebruikers, interfaces en techniek. Niet alleen het eindresultaat, maar ook mijn aanpak, keuzes en wat ik ervan leer.',
 ];
+
+export const profileStage = {
+  company: 'Indicia E-commerce',
+  role: 'Stagiair UX/UI & Shopify',
+  period: 'Sept 2025 – Feb 2026',
+  intro:
+    'Bij Indicia E-commerce ontwierp en bouwde ik Shopify-webshops voor verschillende klanten, van concept tot live oplevering.',
+  highlights: [
+    'Shopify-thema\'s en shop-ervaringen uitgewerkt in een agency-omgeving.',
+    'Meerdere klantwebsites opgeleverd met oog voor merk, conversie en onderhoud.',
+  ] as string[],
+  featuredWork: {
+    label: 'Bubbels & Bo',
+    href: 'https://bubblesandbo.nl/',
+  },
+};
 
 export const heroRoles = ['UI Designer', 'Front End Developer'];
 
