@@ -43,11 +43,14 @@ const UpendoProjectPage = () => {
             metaTitle={metaTitle}
             metaDescription={metaDescription}
             pageTitle={pageTitle}
+            role="Front-end Developer (teamproject)"
+            intro={description}
             projectImage="/Upendo.png"
-            description={description}
             technologies={technologies}
             githubUrl={githubUrl}
-        />
+        >
+            <></>
+        </ProjectPageLayout>
     );
 };
 

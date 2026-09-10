@@ -80,10 +80,13 @@ const ThreeJsProjectPage = () => {
             metaTitle={metaTitle}
             metaDescription={metaDescription}
             pageTitle={pageTitle}
+            role="Front-end Developer"
+            intro={description}
             projectImage="/Threejs.png"
-            description={description}
             technologies={technologies}
-        />
+        >
+            <></>
+        </ProjectPageLayout>
     );
 };
 

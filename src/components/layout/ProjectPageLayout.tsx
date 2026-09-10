@@ -12,24 +12,30 @@ interface ProjectPageLayoutProps {
     metaTitle: string;
     metaDescription: string;
     pageTitle: string;
+    summary?: string;
+    role: string;
+    intro: ReactNode;
     projectImage?: string;
     projectPreviewImage?: string;
+    imageCaption?: string;
     projectVideoId?: string;
-    description: ReactNode;
     technologies: string[];
     githubUrl?: string;
     liveUrl?: string;
-    children?: ReactNode;
+    children: ReactNode;
 }
 
 export default function ProjectPageLayout({
     metaTitle,
     metaDescription,
     pageTitle,
+    summary,
+    role,
+    intro,
     projectImage,
     projectPreviewImage,
+    imageCaption,
     projectVideoId,
-    description,
     technologies,
     githubUrl,
     liveUrl,
@@ -43,7 +49,6 @@ export default function ProjectPageLayout({
             </Head>
 
             <div className="max-w-[1200px] mx-auto px-8 pt-28 pb-20 min-h-screen">
-                {/* Back link */}
                 <Reveal>
                     <Link
                         href="/#projects"
@@ -60,15 +65,26 @@ export default function ProjectPageLayout({
                     </Link>
                 </Reveal>
 
-                {/* Hero */}
                 <Reveal>
                     <p className="font-mono text-xs uppercase tracking-label text-primary mb-4">Project</p>
                     <MaskedText
                         text={pageTitle}
                         as="h1"
-                        className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-6"
+                        className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-4"
                     />
+                    {summary && (
+                        <p className="text-base md:text-lg text-muted-foreground max-w-prose mb-4 leading-relaxed">
+                            {summary}
+                        </p>
+                    )}
+                    <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-6">
+                        Rol: <span className="text-foreground">{role}</span>
+                    </p>
                     <Rule className="mb-8" />
+
+                    <div className="prose-editorial max-w-prose mb-8 space-y-4">
+                        {intro}
+                    </div>
 
                     <div className="flex flex-wrap gap-2 mb-8">
                         {technologies.map((tech, i) => (
@@ -105,7 +121,6 @@ export default function ProjectPageLayout({
                     )}
                 </Reveal>
 
-                {/* Video */}
                 {projectVideoId && (
                     <Reveal>
                         <div className="mb-12 aspect-video max-w-4xl border border-border overflow-hidden">
@@ -121,46 +136,54 @@ export default function ProjectPageLayout({
                     </Reveal>
                 )}
 
-                {/* Content grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-                    <Reveal className="lg:col-span-8">
-                        <h2 className="font-display text-2xl md:text-3xl text-foreground mb-6">Projectbeschrijving</h2>
-                        <Rule className="mb-8" />
-                        <div className="prose-editorial max-w-prose">
-                            {description}
-                        </div>
-                        {children && <div className="mt-8">{children}</div>}
-                    </Reveal>
+                    <div className="lg:col-span-8">
+                        {children}
+                    </div>
 
                     <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start space-y-8">
                         {projectPreviewImage && !projectVideoId && (
                             <Reveal delay={0.1}>
-                                <div className="border border-border overflow-hidden bg-background">
-                                    <Image
-                                        src={projectPreviewImage}
-                                        alt={`Preview van ${pageTitle}`}
-                                        width={390}
-                                        height={844}
-                                        sizes="(max-width: 1024px) 100vw, 320px"
-                                        className="object-cover object-top w-full aspect-[390/844]"
-                                        priority
-                                    />
+                                <div>
+                                    <div className="border border-border overflow-hidden bg-background">
+                                        <Image
+                                            src={projectPreviewImage}
+                                            alt={`Preview van ${pageTitle}`}
+                                            width={390}
+                                            height={844}
+                                            sizes="(max-width: 1024px) 100vw, 320px"
+                                            className="object-cover object-top w-full aspect-[390/844]"
+                                            priority
+                                        />
+                                    </div>
+                                    {imageCaption && (
+                                        <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mt-3">
+                                            {imageCaption}
+                                        </p>
+                                    )}
                                 </div>
                             </Reveal>
                         )}
 
                         {projectImage && !projectVideoId && !projectPreviewImage && (
                             <Reveal delay={0.1}>
-                                <div className="border border-border p-8 flex items-center justify-center bg-white">
-                                    <Image
-                                        src={projectImage}
-                                        alt={`Logo voor ${pageTitle}`}
-                                        width={320}
-                                        height={96}
-                                        sizes="(max-width: 1024px) 100vw, 320px"
-                                        className="object-contain w-full max-h-24"
-                                        priority
-                                    />
+                                <div>
+                                    <div className="border border-border p-8 flex items-center justify-center bg-white">
+                                        <Image
+                                            src={projectImage}
+                                            alt={`Logo voor ${pageTitle}`}
+                                            width={320}
+                                            height={96}
+                                            sizes="(max-width: 1024px) 100vw, 320px"
+                                            className="object-contain w-full max-h-24"
+                                            priority
+                                        />
+                                    </div>
+                                    {imageCaption && (
+                                        <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mt-3">
+                                            {imageCaption}
+                                        </p>
+                                    )}
                                 </div>
                             </Reveal>
                         )}
@@ -170,17 +193,8 @@ export default function ProjectPageLayout({
                                 <h3 className="font-mono text-xs uppercase tracking-label text-primary mb-4">Details</h3>
                                 <Rule className="mb-6" />
 
-                                <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-3">Skills</p>
-                                <div className="flex flex-wrap gap-2 mb-8">
-                                    {technologies.map((tech) => (
-                                        <span
-                                            key={tech}
-                                            className="font-mono text-[10px] uppercase tracking-label text-muted-foreground border border-border px-2 py-1"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
+                                <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-1">Rol</p>
+                                <p className="text-sm text-foreground mb-6">{role}</p>
 
                                 {(githubUrl || liveUrl) && (
                                     <div className="space-y-3 pt-6 border-t border-border">

@@ -4,6 +4,7 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 export interface ProjectIndexItem {
   id: number;
   title: string;
+  role: string;
   description: string;
   image: string;
   tags: string[];
@@ -37,6 +38,9 @@ export default function ProjectIndexRow({ project, index }: ProjectIndexRowProps
               {project.title}
             </h3>
           </Link>
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-label text-primary">
+            {project.role}
+          </p>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-prose">
             {project.description}
           </p>

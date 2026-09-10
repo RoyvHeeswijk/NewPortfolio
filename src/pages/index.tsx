@@ -7,7 +7,7 @@ import { FaLinkedin } from 'react-icons/fa';
 import {
   SiJavascript, SiReact, SiNextdotjs, SiVuedotjs, SiNodedotjs, SiThreedotjs,
   SiTypescript, SiShopify, SiPython, SiTailwindcss, SiGithub, SiFigma,
-  SiSupabase, SiVite, SiOpenai, SiHtml5, SiShadcnui, SiLucide,
+  SiSupabase, SiOpenai, SiHtml5,
 } from 'react-icons/si';
 import MaskedText from '../components/ui/MaskedText';
 import SectionLabel from '../components/ui/SectionLabel';
@@ -29,6 +29,7 @@ function CursorIcon({ size = 16, className, style }: { size?: number; className?
 interface Project {
   id: number;
   title: string;
+  role: string;
   description: string;
   image: string;
   tags: string[];
@@ -39,10 +40,51 @@ interface Project {
 }
 
 const projectsData: Project[] = [
-  { id: 1, title: "UI Foundry", description: "Interactieve design-system en frontend playground om componenten, tokens, patterns en accessibility centraal te beheren en testen.", image: "/UIFoundry.png", tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui"], live: "/UIFoundry", liveDemo: "https://temporary-quick-delta-5hc7rpj.vercel.app/", logoImage: true },
-  { id: 2, title: "FORGE Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
-  { id: 3, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
-  { id: 4, title: "GymTrack", description: "AI-gedreven workout planner en tracker met 3D-spier-heatmap, schema-architect en progressie-analyse.", image: "/GymTrack.png", tags: ["React", "TypeScript", "Tailwind CSS", "Supabase", "Vite"], github: "https://github.com/RoyvHeeswijk/GymTrack", live: "/GymTrack", liveDemo: "https://gym-track-bice.vercel.app/" },
+  {
+    id: 1,
+    title: "UI Foundry",
+    role: "UX/UI & Front-end",
+    description: "Design-system tool om componenten, tokens en patterns te beheren, testen en documenteren.",
+    image: "/UIFoundry.png",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    live: "/UIFoundry",
+    liveDemo: "https://temporary-quick-delta-5hc7rpj.vercel.app/",
+    logoImage: true,
+  },
+  {
+    id: 2,
+    title: "FORGE",
+    role: "Front-end",
+    description: "Interactieve e-commerce webshop waarin ik productnavigatie, filtering en responsive frontend combineerde.",
+    image: "/Forge.png",
+    tags: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/RoyvHeeswijk/Forge",
+    live: "/Forge",
+    liveDemo: "https://forge-eight-nu.vercel.app",
+  },
+  {
+    id: 3,
+    title: "SalesFlow",
+    role: "UI & Front-end",
+    description: "Bedrijfswebsite voor een fictief adviesbureau, opgezet met duidelijke dienstenstructuur en herbruikbare componenten.",
+    image: "/SalesFlow.svg",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/RoyvHeeswijk/SalesFlow",
+    live: "/SalesFlow",
+    liveDemo: "https://sales-flow-dun.vercel.app",
+    logoImage: true,
+  },
+  {
+    id: 4,
+    title: "GymTrack",
+    role: "UX/UI & Front-end",
+    description: "Fitnessapp voor krachtsporters, ontworpen rond snelle workout-flows en gebouwd als responsive webapp.",
+    image: "/GymTrack.png",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Supabase"],
+    github: "https://github.com/RoyvHeeswijk/GymTrack",
+    live: "/GymTrack",
+    liveDemo: "https://gym-track-bice.vercel.app/",
+  },
 ];
 
 const skillsData = [
@@ -55,9 +97,6 @@ const skillsData = [
   { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { name: "HTML & CSS", icon: SiHtml5, color: "#E34F26" },
   { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-  { name: "shadcn/ui", icon: SiShadcnui, color: "#FFFFFF" },
-  { name: "Lucide", icon: SiLucide, color: "#F56565" },
-  { name: "Vite", icon: SiVite, color: "#646CFF" },
   { name: "Supabase", icon: SiSupabase, color: "#3FCF8E" },
   { name: "OpenAI", icon: SiOpenai, color: "#FFFFFF" },
   { name: "Cursor", icon: CursorIcon, color: "#FFFFFF" },
@@ -67,7 +106,7 @@ const skillsData = [
   { name: "Figma", icon: SiFigma, color: "#F24E1E" },
 ];
 
-const roles = ["Front End Developer", "UI Designer"];
+const roles = ["UX/UI Designer", "Front-end Developer"];
 
 const aboutFacts = [
   { label: "Leeftijd", value: "21 jaar" },
@@ -131,8 +170,8 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Roy van Heeswijk - Front End Developer</title>
-        <meta name="description" content="Portfolio van Roy van Heeswijk, een gepassioneerd Front End Developer die moderne en innovatieve weboplossingen creëert." />
+        <title>Roy van Heeswijk - UX/UI Designer & Front-end Developer</title>
+        <meta name="description" content="Portfolio van Roy van Heeswijk. UX/UI designer en front-end developer die interfaces ontwerpt en omzet naar werkende producten." />
       </Head>
 
       {/* ── HERO ── */}
@@ -155,7 +194,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-prose mb-10">
-                Ik creëer interactieve gebruikersinterfaces en zet designs om in vloeiende webapplicaties. Met AI als hulpmiddel zorg ik voor een soepel en efficiënt proces van idee tot eindresultaat.
+                Ik ontwerp en bouw digitale interfaces waarbij UX, design en frontend samenkomen. Van schets tot werkend product: ik denk mee over gebruikers, structuur en techniek.
               </p>
 
               <div className="flex flex-wrap items-center gap-6">
@@ -184,16 +223,15 @@ export default function HomePage() {
             <Reveal className="lg:col-span-7">
               <div className="space-y-6 text-base leading-relaxed text-muted-foreground max-w-prose">
                 <p>
-                  Als 21-jarige student ICT & Human Centered Design aan Fontys in Tilburg volg ik op dit moment
-                  de minor Psychologie & Technologie. Daarin wil ik meer leren over gebruikers en hun handelingen,
-                  zodat ik producten en ontwerpen gericht kan verbeteren. Geboren in Drunen, breng ik mijn passie voor
-                  technologie en creativiteit samen in elk project en heb ik mezelf ontwikkeld tot een gedreven
-                  front-end developer die graag nieuwe uitdagingen aangaat.
+                  Als 21-jarige student ICT & Human Centered Design aan Fontys Tilburg volg ik de minor
+                  Psychologie & Technologie. Daarin leer ik hoe gebruikers denken en handelen, zodat ik
+                  betere ontwerpkeuzes kan maken. Ik combineer UX/UI met frontend development en werk graag
+                  aan producten die echt gebruikt worden.
                 </p>
                 <p>
-                  Mijn doel is om mezelf constant uit te dagen en te blijven leren. In mijn portfolio zie je
-                  niet alleen mijn werk, maar ook mijn groei als developer. Ik focus me op het creëren van
-                  moderne, gebruiksvriendelijke websites die niet alleen mooi zijn, maar ook effectief communiceren.
+                  In mijn projecten laat ik zien hoe ik nadenk over gebruikers, interfaces en techniek.
+                  Niet alleen het eindresultaat, maar ook mijn aanpak, keuzes en wat ik ervan leer.
+                  Ik zoek een stage of bijbaan waar ik kan groeien als UX/UI designer en front-end developer.
                 </p>
               </div>
             </Reveal>
