@@ -48,7 +48,7 @@ const UIFoundryProjectPage = () => {
             metaTitle={metaTitle}
             metaDescription={metaDescription}
             pageTitle={pageTitle}
-            projectPreviewImage="/UIFoundry.png"
+            projectImage="/UIFoundry.png"
             description={description}
             technologies={technologies}
             liveUrl={liveUrl}

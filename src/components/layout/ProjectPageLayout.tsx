@@ -151,14 +151,14 @@ export default function ProjectPageLayout({
 
                         {projectImage && !projectVideoId && !projectPreviewImage && (
                             <Reveal delay={0.1}>
-                                <div className="border border-border p-8 flex items-center justify-center">
+                                <div className="border border-border p-8 flex items-center justify-center bg-white">
                                     <Image
                                         src={projectImage}
                                         alt={`Logo voor ${pageTitle}`}
-                                        width={220}
-                                        height={56}
-                                        sizes="220px"
-                                        className="object-contain w-auto max-w-full max-h-16"
+                                        width={320}
+                                        height={96}
+                                        sizes="(max-width: 1024px) 100vw, 320px"
+                                        className="object-contain w-full max-h-24"
                                         priority
                                     />
                                 </div>
