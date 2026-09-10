@@ -11,15 +11,23 @@ const UIFoundryProjectPage = () => {
     return (
         <ProjectPageLayout
             metaTitle="UI Foundry | Roy van Heeswijk"
-            metaDescription="UI Foundry is een interactieve design-system tool om componenten, tokens en patterns te beheren, testen en documenteren."
+            metaDescription="UI Foundry is een webapp waarmee je website-onderdelen op één plek bekijkt, aanpast en testet — knoppen, formulieren, kleuren en stijlen."
             pageTitle="UI Foundry"
-            summary="Design-system tool om componenten, tokens en patterns te beheren en testen."
+            summary="Een online werkplaats voor website-onderdelen: knoppen, formulieren en stijlen op één plek bekijken, aanpassen en testen."
             role="UX/UI Designer & Front-end Developer"
             intro={
-                <p>
-                    UI Foundry is een werkende webapp waarin alles echt functioneert: theme editing, playground met code-export,
-                    accessibility checks en een page builder. Geen statische showcase.
-                </p>
+                <>
+                    <p>
+                        <strong className="text-foreground">Wat is het?</strong> UI Foundry is een webapp voor designers
+                        en developers die aan een website of app werken. In plaats van losse screenshots of losse code,
+                        zie je hier al je bouwstenen bij elkaar: knoppen, invoervelden, kaarten, navigatie, enzovoort.
+                    </p>
+                    <p>
+                        Je kunt bijvoorbeeld de hoofdkleur of afgeronde hoeken aanpassen en meteen zien hoe álle
+                        onderdelen meeveranderen. Ook kun je code kopiëren en pagina&apos;s in elkaar klikken om te
+                        testen hoe iets eruitziet voordat je het in een echt project gebruikt.
+                    </p>
+                </>
             }
             projectImage="/UIFoundry.png"
             imageCaption="Projectlogo UI Foundry"
@@ -28,38 +36,48 @@ const UIFoundryProjectPage = () => {
         >
             <ProjectContentSection number="01" title="Het project">
                 <p>
-                    Ik bouwde een platform met dashboard, component library, playground, token editor, patterns,
-                    accessibility lab en page builder. Alle onderdelen delen dezelfde componentdefinities, zodat wijzigingen
-                    direct door de hele app lopen.
+                    Ik bouwde UI Foundry als volwaardige webapp met onder andere:
+                </p>
+                <ul>
+                    <li><strong>Componentenbibliotheek</strong> — alle knoppen, formulieren en andere UI-onderdelen overzichtelijk op één plek</li>
+                    <li><strong>Stijleditor</strong> — kleuren, lettertypes en spacing aanpassen en direct het resultaat zien</li>
+                    <li><strong>Playground</strong> — een onderdeel kiezen, instellingen wijzigen en de bijbehorende code kopiëren</li>
+                    <li><strong>Patroonvoorbeelden</strong> — kant-en-klare combinaties zoals een loginformulier of instellingenpagina</li>
+                    <li><strong>Page builder</strong> — zelf een pagina samenstellen uit onderdelen en de code daarvan bekijken</li>
+                </ul>
+                <p>
+                    Alles hangt aan dezelfde databron. Pas je ergens een kleur aan, dan verandert die overal tegelijk.
                 </p>
             </ProjectContentSection>
 
             <ProjectContentSection number="02" title="Aanpak & keuzes">
                 <ProjectProcess
                     steps={[
-                        { title: 'Structuur', description: 'Navigatie en pagina-indeling bepaald op basis van wat een design system nodig heeft.' },
-                        { title: 'Centrale data', description: 'Componentinfo in één databron voor overview, detail, playground en health score.' },
-                        { title: 'Bouwen & testen', description: 'Pagina voor pagina gekoppeld aan tokens en live previews, getest op desktop en mobiel.' },
+                        { title: 'Structuur', description: 'Eerst bepaald welke onderdelen een tool als deze nodig heeft: overzicht, detail, testen en documentatie.' },
+                        { title: 'Centrale data', description: 'Alle info over knoppen en formulieren in één databron, zodat het overzicht en de playground altijd kloppen.' },
+                        { title: 'Bouwen & testen', description: 'Elke pagina gekoppeld aan live previews en op desktop én mobiel getest.' },
                     ]}
                 />
                 <ProjectInsight
                     items={[
-                        { label: 'Keuze', text: 'Bij elk component een "Why does this exist?"-sectie: wanneer wel/niet gebruiken en welk UX-probleem het oplost.' },
-                        { label: 'Keuze', text: 'Rustige developer-tool stijl met vaste sidebar, zodat je snel kunt scannen zonder visuele ruis.' },
+                        { label: 'Keuze', text: 'Bij elk onderdeel leg ik uit waarvoor je het gebruikt en wanneer je iets anders beter kunt kiezen — niet alleen hóe het eruitziet.' },
+                        { label: 'Keuze', text: 'Rustige, overzichtelijke layout met vaste sidebar, vergelijkbaar met tools als Figma of Storybook.' },
                     ]}
                 />
             </ProjectContentSection>
 
             <ProjectContentSection number="03" title="Ontwikkeling">
                 <p>
-                    Next.js, TypeScript en Tailwind CSS. Componentdefinities sturen playground, code-export en accessibility checks.
-                    Theme-wijzigingen via tokens en localStorage. Page builder en playground genereren echte React-code op basis van properties.
+                    Gebouwd met Next.js, TypeScript en Tailwind CSS. De playground en page builder genereren
+                    echte React-code die je kunt kopiëren. Stijlwijzigingen worden opgeslagen in de browser,
+                    zodat je instellingen bewaard blijven als je terugkomt.
                 </p>
             </ProjectContentSection>
 
             <ProjectContentSection number="04" title="Resultaat & geleerd">
                 <p>
-                    Een werkende V1 met 21 componenten, 8 patterns, live theme editing en design system health score.
+                    Een werkende app met 21 UI-onderdelen, 8 patroonvoorbeelden, live stijleditor en een
+                    score die laat zien hoe consistent alles is.
                 </p>
                 <ul>
                     <li>Losse pagina&apos;s leiden snel tot dubbele data; één componentdefinitie maakte alles consistenter.</li>

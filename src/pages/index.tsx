@@ -44,7 +44,7 @@ const projectsData: Project[] = [
     id: 1,
     title: "UI Foundry",
     role: "UX/UI & Front-end",
-    description: "Design-system tool om componenten, tokens en patterns te beheren, testen en documenteren.",
+    description: "Webapp om website-onderdelen (knoppen, formulieren, stijlen) op één plek te bekijken, aanpassen en testen.",
     image: "/UIFoundry.png",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     live: "/UIFoundry",
