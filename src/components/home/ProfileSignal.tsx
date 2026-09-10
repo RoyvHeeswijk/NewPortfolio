@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SignalMarker from './SignalMarker';
 import { aboutFacts, profileBody, profileStatement } from '@/data/homepage';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { isPhoneViewport } from '@/lib/viewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +16,7 @@ export default function ProfileSignal() {
   const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || isPhoneViewport()) return;
     const section = sectionRef.current;
     if (!section) return;
 

@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SignalMarker from '../home/SignalMarker';
 import type { ProjectSection, ProjectSectionVariant } from '@/types/projectPage';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { isPhoneViewport } from '@/lib/viewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +24,7 @@ function useSectionReveal(sectionKey: string) {
   const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || isPhoneViewport()) return;
     const root = sectionRef.current;
     if (!root) return;
 

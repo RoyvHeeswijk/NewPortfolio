@@ -11,6 +11,7 @@ import SignalMarker from '../home/SignalMarker';
 import ProjectSectionSignal from './ProjectSectionSignal';
 import type { ProjectPageData } from '@/types/projectPage';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { isPhoneViewport } from '@/lib/viewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +42,7 @@ export default function ProjectSignalPage({
     document.body.style.removeProperty('overflow');
     ScrollTrigger.refresh();
 
-    if (reducedMotion) return;
+    if (reducedMotion || isPhoneViewport()) return;
 
     const hero = heroRef.current;
     const overview = overviewRef.current;
@@ -188,7 +189,7 @@ export default function ProjectSignalPage({
       <section className="py-16 md:py-24 lg:py-28 pb-24 md:pb-32">
         <div className="max-w-[1400px] mx-auto px-6 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-8 min-w-0 order-2 lg:order-1">
+            <div className="lg:col-span-8 min-w-0 max-w-full order-2 lg:order-1">
               <div ref={overviewRef} className="mb-14 md:mb-20 max-w-2xl">
                 <p data-overview-reveal className="signal-label text-primary mb-5 flex items-center gap-2">
                   <SignalMarker /> Over dit project

@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SignalMarker from './SignalMarker';
 import { skills, type SkillEntry } from '@/data/homepage';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { isPhoneViewport } from '@/lib/viewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,27 +45,24 @@ export default function ExpertiseSignal() {
   const headerRef = useRef<HTMLDivElement>(null);
   const wallRef = useRef<HTMLUListElement>(null);
   const wallWrapRef = useRef<HTMLDivElement>(null);
-  const bottomLineRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || isPhoneViewport()) return;
 
     const section = sectionRef.current;
     const header = headerRef.current;
     const wall = wallRef.current;
     const wallWrap = wallWrapRef.current;
-    const bottomLine = bottomLineRef.current;
-    if (!section || !header || !wall || !wallWrap || !bottomLine) return;
+    if (!section || !header || !wall || !wallWrap) return;
 
     const items = gsap.utils.toArray<HTMLElement>('[data-skill-item]', wall);
     const headerBits = gsap.utils.toArray<HTMLElement>('[data-skill-fade]', header);
-    const exitTargets = [...items, bottomLine];
+    const exitTargets = items;
 
     const ctx = gsap.context(() => {
       gsap.set(headerBits, { y: 16, opacity: 0 });
       gsap.set(items, { y: 20, opacity: 0 });
-      gsap.set(bottomLine, { y: 0, opacity: 1 });
 
       gsap
         .timeline({
@@ -154,7 +152,6 @@ export default function ExpertiseSignal() {
               <SkillItem key={item.name} item={item} index={index} />
             ))}
           </ul>
-          <div ref={bottomLineRef} data-skill-bottom className="border-t-2 border-border" aria-hidden />
         </div>
       </div>
     </section>

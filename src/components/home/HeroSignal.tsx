@@ -9,6 +9,7 @@ import SignalMarker from './SignalMarker';
 import { heroIntro, heroRoles } from '@/data/homepage';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useTypewriter } from '@/hooks/useTypewriter';
+import { isPhoneViewport } from '@/lib/viewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,7 +23,7 @@ export default function HeroSignal() {
   const roleLabel = reducedMotion ? heroRoles.join(' · ') : typedRole;
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || isPhoneViewport()) return;
     const section = sectionRef.current;
     const title = titleRef.current;
     const photo = photoRef.current;
@@ -103,7 +104,7 @@ export default function HeroSignal() {
 
           <div
             ref={photoRef}
-            className="relative md:absolute md:right-8 md:top-1/2 md:-translate-y-1/2 w-full max-w-[200px] md:w-[38vw] md:max-w-[320px] aspect-[3/5] z-20 will-change-transform shrink-0 self-end md:self-auto"
+            className="relative md:absolute md:right-8 md:top-1/2 md:-translate-y-1/2 w-full max-w-[180px] md:w-[38vw] md:max-w-[320px] aspect-[3/5] z-20 will-change-transform shrink-0 self-center md:self-auto mx-auto md:mx-0"
           >
             <div className="relative h-full w-full overflow-hidden border-2 border-primary/60">
               <Image

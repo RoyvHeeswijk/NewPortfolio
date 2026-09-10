@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SignalMarker from './SignalMarker';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { isPhoneViewport } from '@/lib/viewport';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,7 +51,7 @@ export default function ContactSignal() {
   const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (reducedMotion) return;
+    if (reducedMotion || isPhoneViewport()) return;
 
     const section = sectionRef.current;
     const line = lineRef.current;
@@ -126,7 +127,6 @@ export default function ContactSignal() {
             <div>
               <ContactRoute index="01" title="E-mail" hint="Mail-app →" href={MAILTO} />
               <ContactRoute index="02" title="LinkedIn" hint="Profiel →" href={LINKEDIN} external />
-              <div className="border-t-2 border-border" aria-hidden />
             </div>
           </div>
         </div>

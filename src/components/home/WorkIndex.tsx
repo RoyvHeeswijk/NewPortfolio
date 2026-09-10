@@ -264,7 +264,6 @@ export default function WorkIndex() {
                   </button>
                 );
               })}
-              <div className="border-t-2 border-border" aria-hidden />
             </div>
           </div>
 
