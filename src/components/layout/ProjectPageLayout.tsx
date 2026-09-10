@@ -52,7 +52,7 @@ export default function ProjectPageLayout({
                 <Reveal>
                     <Link
                         href="/#projects"
-                        className="inline-flex items-center font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline mb-12 group"
+                        className="inline-flex items-center font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline mb-10 group"
                     >
                         <motion.span
                             className="mr-2 inline-block"
@@ -65,65 +65,9 @@ export default function ProjectPageLayout({
                     </Link>
                 </Reveal>
 
-                <Reveal>
-                    <p className="font-mono text-xs uppercase tracking-label text-primary mb-4">Project</p>
-                    <MaskedText
-                        text={pageTitle}
-                        as="h1"
-                        className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-4"
-                    />
-                    {summary && (
-                        <p className="text-base md:text-lg text-muted-foreground max-w-prose mb-4 leading-relaxed">
-                            {summary}
-                        </p>
-                    )}
-                    <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-6">
-                        Rol: <span className="text-foreground">{role}</span>
-                    </p>
-                    <Rule className="mb-8" />
-
-                    <div className="prose-editorial max-w-prose mb-8 space-y-4">
-                        {intro}
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-8">
-                        {technologies.map((tech, i) => (
-                            <motion.span
-                                key={tech}
-                                className="font-mono text-[10px] uppercase tracking-label text-muted-foreground border border-border px-2.5 py-1"
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 + i * 0.04, duration: 0.3 }}
-                            >
-                                {tech}
-                            </motion.span>
-                        ))}
-                    </div>
-
-                    {(githubUrl || liveUrl) && (
-                        <div className="flex flex-wrap gap-4 mb-12">
-                            {liveUrl && (
-                                <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                                    <FaExternalLinkAlt size={12} /> Bekijk Live Project
-                                </a>
-                            )}
-                            {githubUrl && (
-                                <a
-                                    href={githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline inline-flex items-center gap-2 px-6 py-3 border border-border"
-                                >
-                                    <FaGithub size={13} /> Bekijk op GitHub
-                                </a>
-                            )}
-                        </div>
-                    )}
-                </Reveal>
-
                 {projectVideoId && (
                     <Reveal>
-                        <div className="mb-12 aspect-video max-w-4xl border border-border overflow-hidden">
+                        <div className="mb-10 aspect-video max-w-4xl border border-border overflow-hidden">
                             <iframe
                                 className="w-full h-full"
                                 src={`https://www.youtube.com/embed/${projectVideoId}`}
@@ -136,15 +80,12 @@ export default function ProjectPageLayout({
                     </Reveal>
                 )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-                    <div className="lg:col-span-8">
-                        {children}
-                    </div>
-
-                    <div className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start space-y-8">
-                        {projectPreviewImage && !projectVideoId && (
-                            <Reveal delay={0.1}>
-                                <div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                    {/* Sidebar eerst op mobiel, sticky rechts op desktop */}
+                    <div className="lg:col-span-4 order-first lg:order-last">
+                        <div className="lg:sticky lg:top-28 space-y-6">
+                            {projectPreviewImage && !projectVideoId && (
+                                <Reveal delay={0.05}>
                                     <div className="border border-border overflow-hidden bg-background">
                                         <Image
                                             src={projectPreviewImage}
@@ -157,18 +98,16 @@ export default function ProjectPageLayout({
                                         />
                                     </div>
                                     {imageCaption && (
-                                        <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mt-3">
+                                        <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mt-2">
                                             {imageCaption}
                                         </p>
                                     )}
-                                </div>
-                            </Reveal>
-                        )}
+                                </Reveal>
+                            )}
 
-                        {projectImage && !projectVideoId && !projectPreviewImage && (
-                            <Reveal delay={0.1}>
-                                <div>
-                                    <div className="border border-border p-8 flex items-center justify-center bg-white">
+                            {projectImage && !projectVideoId && !projectPreviewImage && (
+                                <Reveal delay={0.05}>
+                                    <div className="border border-border p-6 flex items-center justify-center bg-white">
                                         <Image
                                             src={projectImage}
                                             alt={`Logo voor ${pageTitle}`}
@@ -180,48 +119,84 @@ export default function ProjectPageLayout({
                                         />
                                     </div>
                                     {imageCaption && (
-                                        <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mt-3">
+                                        <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mt-2">
                                             {imageCaption}
                                         </p>
                                     )}
+                                </Reveal>
+                            )}
+
+                            <Reveal delay={0.1}>
+                                <div>
+                                    <h3 className="font-mono text-xs uppercase tracking-label text-primary mb-3">Details</h3>
+                                    <Rule className="mb-5" />
+
+                                    <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-1">Rol</p>
+                                    <p className="text-sm text-foreground mb-5">{role}</p>
+
+                                    <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-2">Technologie</p>
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                        {technologies.map((tech) => (
+                                            <span
+                                                key={tech}
+                                                className="font-mono text-[10px] uppercase tracking-label text-foreground border border-border px-2 py-1"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    {(githubUrl || liveUrl) && (
+                                        <div className="space-y-3 pt-5 border-t border-border">
+                                            {liveUrl && (
+                                                <a
+                                                    href={liveUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="btn-primary w-full justify-center"
+                                                >
+                                                    <FaExternalLinkAlt size={12} /> Bekijk Live Project
+                                                </a>
+                                            )}
+                                            {githubUrl && (
+                                                <a
+                                                    href={githubUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline flex items-center justify-center gap-2 w-full py-3 border border-border"
+                                                >
+                                                    <FaGithub size={13} /> Bekijk op GitHub
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </Reveal>
-                        )}
+                        </div>
+                    </div>
 
-                        <Reveal delay={0.15}>
-                            <div>
-                                <h3 className="font-mono text-xs uppercase tracking-label text-primary mb-4">Details</h3>
-                                <Rule className="mb-6" />
-
-                                <p className="font-mono text-[10px] uppercase tracking-label text-muted-foreground mb-1">Rol</p>
-                                <p className="text-sm text-foreground mb-6">{role}</p>
-
-                                {(githubUrl || liveUrl) && (
-                                    <div className="space-y-3 pt-6 border-t border-border">
-                                        {liveUrl && (
-                                            <a
-                                                href={liveUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="btn-primary w-full justify-center"
-                                            >
-                                                <FaExternalLinkAlt size={12} /> Bekijk Live Project
-                                            </a>
-                                        )}
-                                        {githubUrl && (
-                                            <a
-                                                href={githubUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="font-mono text-xs uppercase tracking-label text-muted-foreground hover:text-primary transition-colors link-underline flex items-center justify-center gap-2 w-full py-3 border border-border"
-                                            >
-                                                <FaGithub size={13} /> Bekijk op GitHub
-                                            </a>
-                                        )}
-                                    </div>
-                                )}
+                    {/* Hoofdcontent links op desktop */}
+                    <div className="lg:col-span-8 order-last lg:order-first">
+                        <Reveal>
+                            <p className="font-mono text-xs uppercase tracking-label text-primary mb-3">Project</p>
+                            <MaskedText
+                                text={pageTitle}
+                                as="h1"
+                                className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight mb-4"
+                            />
+                            {summary && (
+                                <p className="text-base text-foreground/90 leading-relaxed mb-5 max-w-prose">
+                                    {summary}
+                                </p>
+                            )}
+                            <div className="text-sm text-foreground/85 leading-relaxed space-y-3 mb-8 max-w-prose [&_p]:mb-0">
+                                {intro}
                             </div>
                         </Reveal>
+
+                        <div className="max-w-prose">
+                            {children}
+                        </div>
                     </div>
                 </div>
             </div>

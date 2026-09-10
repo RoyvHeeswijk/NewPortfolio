@@ -9,18 +9,16 @@ interface ProjectProcessProps {
 
 export default function ProjectProcess({ steps }: ProjectProcessProps) {
   return (
-    <div className="space-y-0 my-4">
+    <ol className="space-y-3 my-2 list-none pl-0">
       {steps.map((step, i) => (
-        <div key={step.title}>
-          <div className="py-4">
+        <li key={step.title} className="flex gap-3">
+          <span className="font-mono text-[10px] text-primary shrink-0 pt-0.5">{String(i + 1).padStart(2, '0')}</span>
+          <div>
             <p className="font-mono text-[10px] uppercase tracking-label text-foreground mb-1">{step.title}</p>
-            <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+            <p className="text-sm text-foreground/90 leading-relaxed">{step.description}</p>
           </div>
-          {i < steps.length - 1 && (
-            <p className="font-mono text-xs text-primary pl-1 pb-2" aria-hidden>↓</p>
-          )}
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
