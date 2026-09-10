@@ -163,7 +163,7 @@ html {
 }
 
 .prose-editorial li::before {
-  content: "—";
+  content: "·";
   position: absolute;
   left: 0;
   color: hsl(var(--primary));

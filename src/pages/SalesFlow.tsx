@@ -3,7 +3,7 @@
 import ProjectPageLayout from '../components/layout/ProjectPageLayout';
 
 const SalesFlowProjectPage = () => {
-    const pageTitle = "SalesFlow — E-commerce Adviesbureau";
+    const pageTitle = "SalesFlow: E-commerce Adviesbureau";
     const metaTitle = "SalesFlow | Roy van Heeswijk";
     const metaDescription = "SalesFlow is een fictief online sales adviesbureau dat bedrijven helpt hun e-commerce omzet te maximaliseren. Gebouwd met Next.js, React en Tailwind CSS.";
     const technologies = ["Next.js", "React", "Tailwind CSS", "TypeScript"];
@@ -27,11 +27,11 @@ const SalesFlowProjectPage = () => {
                 Kernfunctionaliteiten:
             </p>
             <ul className="list-disc list-inside mb-6 space-y-2 pl-4">
-                <li><strong>Meerdere pagina&apos;s</strong> — Home, Diensten, Over ons, Prijzen en Contact</li>
-                <li><strong>Responsive design</strong> — Werkt op desktop, tablet en mobiel</li>
-                <li><strong>Component-gebaseerd</strong> — Gebouwd met React en Next.js</li>
-                <li><strong>SEO</strong> — Metadata en optimalisatie voor zoekmachines</li>
-                <li><strong>Moderne stack</strong> — TypeScript, Tailwind CSS, client & server components</li>
+                <li><strong>Meerdere pagina&apos;s:</strong> Home, Diensten, Over ons, Prijzen en Contact</li>
+                <li><strong>Responsive design:</strong> Werkt op desktop, tablet en mobiel</li>
+                <li><strong>Component-gebaseerd:</strong> Gebouwd met React en Next.js</li>
+                <li><strong>SEO:</strong> Metadata en optimalisatie voor zoekmachines</li>
+                <li><strong>Moderne stack:</strong> TypeScript, Tailwind CSS, client & server components</li>
             </ul>
             <p>
                 SalesFlow demonstreert mijn vaardigheden in het bouwen van professionele bedrijfswebsites met een moderne tech stack en aandacht voor gebruiksvriendelijkheid.

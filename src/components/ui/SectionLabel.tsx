@@ -17,7 +17,7 @@ export default function SectionLabel({ number, label, className = '' }: SectionL
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
       >
-        {number} — {label}
+        {number ? `${number} / ${label}` : label}
       </motion.p>
       <Rule />
     </div>

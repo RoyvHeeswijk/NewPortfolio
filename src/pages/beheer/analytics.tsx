@@ -88,7 +88,7 @@ export default function AnalyticsBeheerPage() {
 
       <section className="py-24 min-h-[70vh]">
         <div className="max-w-[720px] mx-auto px-8">
-          <SectionLabel number="—" label="Analytics beheer" />
+          <SectionLabel number="" label="Analytics beheer" />
 
           {authLoading ? (
             <p className="font-mono text-xs uppercase tracking-label text-muted-foreground">
@@ -131,7 +131,7 @@ export default function AnalyticsBeheerPage() {
                   <h1 className="font-display text-2xl text-foreground mb-2">Tracking op dit apparaat</h1>
                   <p className="text-muted-foreground text-sm mb-6">
                     Sluit je eigen bezoeken uit zodat alleen echte bezoekers in Vercel Analytics verschijnen.
-                    Dit geldt per browser — herhaal op telefoon en laptop indien nodig.
+                    Dit geldt per browser. Herhaal dit op telefoon en laptop indien nodig.
                   </p>
 
                   <div className="flex items-center gap-3 mb-6">
@@ -171,10 +171,10 @@ export default function AnalyticsBeheerPage() {
                     Bekijk bezoekersstatistieken in het Vercel-dashboard:
                   </p>
                   <ul className="text-sm text-muted-foreground space-y-2 mb-6 list-disc list-inside">
-                    <li><strong className="text-foreground">Country</strong> — land van bezoekers</li>
-                    <li><strong className="text-foreground">Pages</strong> — welke pagina&apos;s bekeken worden</li>
-                    <li><strong className="text-foreground">Referrers</strong> — waar bezoekers vandaan komen (LinkedIn, Google, etc.)</li>
-                    <li><strong className="text-foreground">Devices / Browsers / OS</strong> — apparaat en browser</li>
+                    <li><strong className="text-foreground">Country:</strong> land van bezoekers</li>
+                    <li><strong className="text-foreground">Pages:</strong> welke pagina&apos;s bekeken worden</li>
+                    <li><strong className="text-foreground">Referrers:</strong> waar bezoekers vandaan komen (LinkedIn, Google, etc.)</li>
+                    <li><strong className="text-foreground">Devices / Browsers / OS:</strong> apparaat en browser</li>
                   </ul>
                   <a
                     href={VERCEL_ANALYTICS_URL}

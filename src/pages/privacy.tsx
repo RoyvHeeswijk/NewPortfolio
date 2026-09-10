@@ -10,13 +10,13 @@ export default function PrivacyPage() {
         <title>Privacy | Roy van Heeswijk</title>
         <meta
           name="description"
-          content="Privacyverklaring voor het portfolio van Roy van Heeswijk — hoe bezoekersstatistieken worden verwerkt."
+          content="Privacyverklaring voor het portfolio van Roy van Heeswijk over hoe bezoekersstatistieken worden verwerkt."
         />
       </Head>
 
       <section className="py-24">
         <div className="max-w-[720px] mx-auto px-8">
-          <SectionLabel number="—" label="Privacy" />
+          <SectionLabel number="" label="Privacy" />
 
           <Reveal>
             <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground">

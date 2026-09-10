@@ -40,7 +40,7 @@ interface Project {
 
 const projectsData: Project[] = [
   { id: 1, title: "UI Foundry", description: "Interactieve design-system en frontend playground om componenten, tokens, patterns en accessibility centraal te beheren en testen.", image: "/UIFoundry.png", tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui"], live: "/UIFoundry", liveDemo: "https://temporary-quick-delta-5hc7rpj.vercel.app/", logoImage: true },
-  { id: 2, title: "FORGE — Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
+  { id: 2, title: "FORGE Webshop", description: "Interactieve webshop voor outdoor gear met winkelwagen, filteren en zoeken.", image: "/Forge.png", tags: ["HTML", "CSS", "JavaScript", "Lovable", "Cursor"], github: "https://github.com/RoyvHeeswijk/Forge", live: "/Forge", liveDemo: "https://forge-eight-nu.vercel.app" },
   { id: 3, title: "SalesFlow", description: "Fictief e-commerce adviesbureau dat bedrijven helpt hun online verkoop te maximaliseren.", image: "/SalesFlow.svg", tags: ["Next.js", "React", "Tailwind CSS", "TypeScript"], github: "https://github.com/RoyvHeeswijk/SalesFlow", live: "/SalesFlow", liveDemo: "https://sales-flow-dun.vercel.app", logoImage: true },
   { id: 4, title: "GymTrack", description: "AI-gedreven workout planner en tracker met 3D-spier-heatmap, schema-architect en progressie-analyse.", image: "/GymTrack.png", tags: ["React", "TypeScript", "Tailwind CSS", "Supabase", "Vite"], github: "https://github.com/RoyvHeeswijk/GymTrack", live: "/GymTrack", liveDemo: "https://gym-track-bice.vercel.app/" },
 ];
@@ -71,7 +71,7 @@ const roles = ["Front End Developer", "UI Designer"];
 
 const aboutFacts = [
   { label: "Leeftijd", value: "21 jaar" },
-  { label: "Opleiding", value: "ICT & Human Centered Design — Fontys Tilburg" },
+  { label: "Opleiding", value: "ICT & Human Centered Design, Fontys Tilburg" },
   { label: "Minor", value: "Psychologie & Technologie" },
   { label: "Herkomst", value: "Drunen" },
 ];
@@ -141,7 +141,7 @@ export default function HomePage() {
           <div className="flex items-end gap-6 md:gap-8 lg:gap-12 xl:gap-16">
             <div className="flex-1 min-w-0">
               <p className="font-mono text-xs uppercase tracking-label text-primary mb-8">
-                Portfolio — {typedRole}
+                Portfolio · {typedRole}
                 <motion.span
                   className="inline-block w-px h-3 ml-1 bg-primary align-middle"
                   animate={{ opacity: [1, 0] }}
