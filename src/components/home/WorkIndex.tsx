@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { HiChevronDown } from 'react-icons/hi';
 import SignalMarker from './SignalMarker';
 import { projectsData } from '@/data/projects';
 import type { ProjectItem } from '@/data/projects';
@@ -50,11 +51,13 @@ function ProjectDetail({
   index,
   total,
   fillHeight = false,
+  compact = false,
 }: {
   project: ProjectItem;
   index: number;
   total: number;
   fillHeight?: boolean;
+  compact?: boolean;
 }) {
   const num = String(index + 1).padStart(2, '0');
 
@@ -63,24 +66,30 @@ function ProjectDetail({
       className={`work-index-detail relative border-2 border-primary/80 bg-background/60 ${
         fillHeight
           ? 'h-full flex flex-col p-6 md:p-8'
-          : 'p-6 md:p-10'
+          : compact
+            ? 'p-5 border-t-0 border-x-0 border-b-0 bg-card/40'
+            : 'p-6 md:p-10'
       }`}
     >
       <div className={fillHeight ? 'flex-1 min-h-0' : undefined}>
-        <p className="font-mono text-xs text-primary mb-4">{num} / {String(total).padStart(2, '0')}</p>
-        <Link
-          href={project.live}
-          className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
-          <h3 className={`font-display uppercase leading-[0.9] text-foreground transition-colors hover:text-primary ${
-            fillHeight
-              ? 'text-[clamp(2rem,4vw,3.5rem)] mb-3'
-              : 'text-[clamp(2.25rem,6vw,4.5rem)] mb-4'
-          }`}>
-            {project.title}
-          </h3>
-        </Link>
-        <p className="signal-label text-primary mb-3">{project.role}</p>
+        {!compact && (
+          <>
+            <p className="font-mono text-xs text-primary mb-4">{num} / {String(total).padStart(2, '0')}</p>
+            <Link
+              href={project.live}
+              className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <h3 className={`font-display uppercase leading-[0.9] text-foreground transition-colors hover:text-primary ${
+                fillHeight
+                  ? 'text-[clamp(2rem,4vw,3.5rem)] mb-3'
+                  : 'text-[clamp(2.25rem,6vw,4.5rem)] mb-4'
+              }`}>
+                {project.title}
+              </h3>
+            </Link>
+            <p className="signal-label text-primary mb-3">{project.role}</p>
+          </>
+        )}
         <p className="signal-body-muted max-w-prose mb-4">
           {project.description}
         </p>
@@ -113,16 +122,81 @@ function ProjectDetail({
   );
 }
 
-function ProjectRowMobile({ project, index, total }: { project: ProjectItem; index: number; total: number }) {
+function ProjectAccordionMobile({
+  project,
+  index,
+  total,
+  isOpen,
+  onToggle,
+}: {
+  project: ProjectItem;
+  index: number;
+  total: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const num = String(index + 1).padStart(2, '0');
+  const panelId = `project-mobile-panel-${project.id}`;
+  const buttonId = `project-mobile-tab-${project.id}`;
+
   return (
-    <article className="work-index-mobile border border-border bg-card overflow-hidden">
-      <ProjectDetail project={project} index={index} total={total} />
+    <article className="work-index-mobile border-b-2 border-border bg-card overflow-hidden last:border-b-0">
+      <button
+        type="button"
+        id={buttonId}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        onClick={onToggle}
+        className={`work-index-mobile-trigger group w-full text-left px-4 py-5 transition-colors duration-300 ${
+          isOpen ? 'bg-card' : 'bg-background hover:bg-card/60'
+        }`}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-baseline gap-3">
+              <span className={`font-mono text-xs shrink-0 transition-colors duration-300 ${
+                isOpen ? 'text-primary' : 'text-muted-foreground group-hover:text-primary/70'
+              }`}>
+                {num}
+              </span>
+              <span className={`font-display text-[clamp(1.5rem,7vw,2rem)] uppercase leading-[0.95] transition-colors duration-300 ${
+                isOpen ? 'text-primary' : 'text-foreground'
+              }`}>
+                {project.title}
+              </span>
+            </div>
+            <p className={`mt-2 ml-8 signal-label transition-colors duration-300 ${
+              isOpen ? 'text-muted-foreground' : 'text-muted-foreground/80'
+            }`}>
+              {project.role}
+            </p>
+          </div>
+          <HiChevronDown
+            size={20}
+            aria-hidden
+            className={`shrink-0 text-primary transition-transform duration-300 mt-1 ${
+              isOpen ? 'rotate-180' : 'rotate-0'
+            }`}
+          />
+        </div>
+      </button>
+
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        hidden={!isOpen}
+        className={isOpen ? 'block' : 'hidden'}
+      >
+        <ProjectDetail project={project} index={index} total={total} compact />
+      </div>
     </article>
   );
 }
 
 export default function WorkIndex() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileOpenIndex, setMobileOpenIndex] = useState<number | null>(0);
   const [autoPaused, setAutoPaused] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -194,12 +268,19 @@ export default function WorkIndex() {
         </p>
 
         <div className="lg:hidden">
-          <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-tight text-foreground mb-12 max-w-[14ch]">
+          <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-tight text-foreground mb-8 md:mb-12 max-w-[14ch]">
             Projecten die ik bouwde.
           </h2>
-          <div className="space-y-6">
+          <div className="work-index-mobile-list border-t-2 border-border" role="list">
             {projectsData.map((project, i) => (
-              <ProjectRowMobile key={project.id} project={project} index={i} total={total} />
+              <ProjectAccordionMobile
+                key={project.id}
+                project={project}
+                index={i}
+                total={total}
+                isOpen={mobileOpenIndex === i}
+                onToggle={() => setMobileOpenIndex((current) => (current === i ? null : i))}
+              />
             ))}
           </div>
         </div>

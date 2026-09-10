@@ -250,12 +250,23 @@
     scroll-margin-top: 4.5rem;
   }
 
-  .work-index-mobile .font-display {
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  .work-index-mobile-trigger .font-display {
+    font-size: clamp(1.35rem, 6.5vw, 1.75rem);
   }
 
-  .work-index-detail {
-    padding: 1.25rem !important;
+  .work-index-mobile-list {
+    border-left: 2px solid hsl(var(--border));
+    border-right: 2px solid hsl(var(--border));
+  }
+
+  .work-index-mobile-trigger {
+    min-height: 3.5rem;
+  }
+
+  .work-index-mobile .work-index-detail {
+    padding: 1rem 1.25rem 1.25rem !important;
+    border-width: 0 !important;
+    border-top: 2px solid hsl(var(--border)) !important;
   }
 }
 
